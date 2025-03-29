@@ -67,6 +67,16 @@ rearCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 rearCamberTextBox.PlaceholderText = "Ângulo"
 rearCamberTextBox.Parent = uiFrame
 
+-- Criar botão para aplicar mudanças
+local applyButton = Instance.new("TextButton")
+applyButton.Size = UDim2.new(0, 150, 0, 40)
+applyButton.Position = UDim2.new(0.5, -75, 0.7, 0)
+applyButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+applyButton.Text = "Aplicar"
+applyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+applyButton.TextScaled = true
+applyButton.Parent = uiFrame
+
 -- Alternar visibilidade ao clicar no botão
 mainButton.MouseButton1Click:Connect(function()
     uiFrame.Visible = not uiFrame.Visible
@@ -78,7 +88,9 @@ mainButton.MouseButton1Click:Connect(function()
 end)
 
 -- Função para alterar a cambagem das rodas
-local function changeCamber(angle, isFront)
+local function changeCamber()
+    local frontAngle = tonumber(frontCamberTextBox.Text) or 0
+    local rearAngle = tonumber(rearCamberTextBox.Text) or 0
     local carCollection = workspace:FindFirstChild("CarCollection")
     if carCollection then
         local playerCar = carCollection:FindFirstChild(player.Name)
@@ -87,13 +99,23 @@ local function changeCamber(angle, isFront)
             if car then
                 local wheels = car:FindFirstChild("Wheels")
                 if wheels then
-                    local targetWheels = isFront and {"FR", "FL"} or {"RL", "RR"}
-                    for _, wheelName in pairs(targetWheels) do
+                    local frontWheels = {"FR", "FL"}
+                    local rearWheels = {"RL", "RR"}
+                    for _, wheelName in pairs(frontWheels) do
                         local wheel = wheels:FindFirstChild(wheelName)
                         if wheel then
                             local constraint = wheel:FindFirstChild("CylindricalConstraint")
                             if constraint then
-                                constraint.InclinationAngle = tonumber(angle) or 0
+                                constraint.InclinationAngle = frontAngle
+                            end
+                        end
+                    end
+                    for _, wheelName in pairs(rearWheels) do
+                        local wheel = wheels:FindFirstChild(wheelName)
+                        if wheel then
+                            local constraint = wheel:FindFirstChild("CylindricalConstraint")
+                            if constraint then
+                                constraint.InclinationAngle = rearAngle
                             end
                         end
                     end
@@ -103,18 +125,5 @@ local function changeCamber(angle, isFront)
     end
 end
 
--- Detectar entrada na TextBox dianteira
-frontCamberTextBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then
-        local angle = frontCamberTextBox.Text
-        changeCamber(angle, true)
-    end
-end)
-
--- Detectar entrada na TextBox traseira
-rearCamberTextBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then
-        local angle = rearCamberTextBox.Text
-        changeCamber(angle, false)
-    end
-end)
+-- Aplicar mudanças ao clicar no botão
+applyButton.MouseButton1Click:Connect(changeCamber)
