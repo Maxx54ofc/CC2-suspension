@@ -65,8 +65,8 @@ frontCamberTextBox.Size = UDim2.new(0, 150, 0, 35)
 frontCamberTextBox.Position = UDim2.new(0.1, 0, 0.2, 0)
 frontCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 frontCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontCamberTextBox.PlaceholderText = "Cambagem Dianteira"
 frontCamberTextBox.ClearTextOnFocus = false
+frontCamberTextBox.Text = ""  -- Inicialmente vazio
 frontCamberTextBox.TextScaled = true
 frontCamberTextBox.Parent = uiFrame
 
@@ -76,8 +76,8 @@ rearCamberTextBox.Size = UDim2.new(0, 150, 0, 35)
 rearCamberTextBox.Position = UDim2.new(0.6, 0, 0.2, 0)
 rearCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 rearCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearCamberTextBox.PlaceholderText = "Cambagem Traseira"
 rearCamberTextBox.ClearTextOnFocus = false
+rearCamberTextBox.Text = ""  -- Inicialmente vazio
 rearCamberTextBox.TextScaled = true
 rearCamberTextBox.Parent = uiFrame
 
@@ -87,8 +87,8 @@ frontFreeLengthTextBox.Size = UDim2.new(0, 150, 0, 35)
 frontFreeLengthTextBox.Position = UDim2.new(0.1, 0, 0.3, 0)
 frontFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 frontFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontFreeLengthTextBox.PlaceholderText = "FreeLength Dianteiro"
 frontFreeLengthTextBox.ClearTextOnFocus = false
+frontFreeLengthTextBox.Text = ""  -- Inicialmente vazio
 frontFreeLengthTextBox.TextScaled = true
 frontFreeLengthTextBox.Parent = uiFrame
 
@@ -98,8 +98,8 @@ rearFreeLengthTextBox.Size = UDim2.new(0, 150, 0, 35)
 rearFreeLengthTextBox.Position = UDim2.new(0.6, 0, 0.3, 0)
 rearFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 rearFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearFreeLengthTextBox.PlaceholderText = "FreeLength Traseiro"
 rearFreeLengthTextBox.ClearTextOnFocus = false
+rearFreeLengthTextBox.Text = ""  -- Inicialmente vazio
 rearFreeLengthTextBox.TextScaled = true
 rearFreeLengthTextBox.Parent = uiFrame
 
