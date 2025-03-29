@@ -174,7 +174,7 @@ local function applyFreeLengths()
                     for _, wheelName in pairs(frontWheels) do
                         local wheel = wheels:FindFirstChild(wheelName)
                         if wheel then
-                            local spring = wheel:FindFirstChild("SpringConstraint")
+                            local spring = wheel:FindFirstChild("Spring")
                             if spring then
                                 spring.FreeLength = frontFreeLength
                             end
@@ -183,7 +183,7 @@ local function applyFreeLengths()
                     for _, wheelName in pairs(rearWheels) do
                         local wheel = wheels:FindFirstChild(wheelName)
                         if wheel then
-                            local spring = wheel:FindFirstChild("SpringConstraint")
+                            local spring = wheel:FindFirstChild("Spring")
                             if spring then
                                 spring.FreeLength = rearFreeLength
                             end
