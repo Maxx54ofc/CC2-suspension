@@ -21,7 +21,7 @@ mainButton.Selectable = true
 
 -- Criar Frame da Interface
 local uiFrame = Instance.new("Frame")
-uiFrame.Size = UDim2.new(0, 400, 0, 300)
+uiFrame.Size = UDim2.new(0, 400, 0, 350)
 uiFrame.Position = UDim2.new(0.1, 50, 0.1, 0)
 uiFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 uiFrame.Visible = false
@@ -55,7 +55,7 @@ frontCamberTextBox.Size = UDim2.new(0, 100, 0, 30)
 frontCamberTextBox.Position = UDim2.new(0.1, 0, 0.15, 0)
 frontCamberTextBox.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 frontCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontCamberTextBox.PlaceholderText = "Ângulo"
+frontCamberTextBox.PlaceholderText = "Ângulo Dianteiro"
 frontCamberTextBox.Parent = uiFrame
 
 -- Criar TextBox para modificar a inclinação das rodas traseiras
@@ -64,10 +64,28 @@ rearCamberTextBox.Size = UDim2.new(0, 100, 0, 30)
 rearCamberTextBox.Position = UDim2.new(0.6, 0, 0.15, 0)
 rearCamberTextBox.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 rearCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearCamberTextBox.PlaceholderText = "Ângulo"
+rearCamberTextBox.PlaceholderText = "Ângulo Traseiro"
 rearCamberTextBox.Parent = uiFrame
 
--- Criar botão para aplicar mudanças
+-- Criar TextBox para modificar o FreeLength dianteiro
+local frontFreeLengthTextBox = Instance.new("TextBox")
+frontFreeLengthTextBox.Size = UDim2.new(0, 100, 0, 30)
+frontFreeLengthTextBox.Position = UDim2.new(0.1, 0, 0.25, 0)
+frontFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+frontFreeLengthTextBox.Text = "Length Dianteiro"
+frontFreeLengthTextBox.ClearTextOnFocus = false
+frontFreeLengthTextBox.Parent = uiFrame
+
+-- Criar TextBox para modificar o FreeLength traseiro
+local rearFreeLengthTextBox = Instance.new("TextBox")
+rearFreeLengthTextBox.Size = UDim2.new(0, 100, 0, 30)
+rearFreeLengthTextBox.Position = UDim2.new(0.6, 0, 0.25, 0)
+rearFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+rearFreeLengthTextBox.Text = "Length Traseiro"
+rearFreeLengthTextBox.ClearTextOnFocus = false
+rearFreeLengthTextBox.Parent = uiFrame
+
+-- Criar botão para aplicar mudanças (único botão para ambos Cambagem e FreeLength)
 local applyButton = Instance.new("TextButton")
 applyButton.Size = UDim2.new(0, 150, 0, 40)
 applyButton.Position = UDim2.new(0.5, -75, 0.7, 0)
@@ -79,51 +97,80 @@ applyButton.Parent = uiFrame
 
 -- Alternar visibilidade ao clicar no botão
 mainButton.MouseButton1Click:Connect(function()
-    uiFrame.Visible = not uiFrame.Visible
-    if uiFrame.Visible then
-        mainButton.Text = "-"
-    else
-        mainButton.Text = "+"
-    end
+	uiFrame.Visible = not uiFrame.Visible
+	if uiFrame.Visible then
+		mainButton.Text = "-"
+	else
+		mainButton.Text = "+"
+	end
 end)
 
--- Função para alterar a cambagem das rodas
-local function changeCamber()
-    local frontAngle = tonumber(frontCamberTextBox.Text) or 0
-    local rearAngle = tonumber(rearCamberTextBox.Text) or 0
-    local carCollection = workspace:FindFirstChild("CarCollection")
-    if carCollection then
-        local playerCar = carCollection:FindFirstChild(player.Name)
-        if playerCar then
-            local car = playerCar:FindFirstChild("Car")
-            if car then
-                local wheels = car:FindFirstChild("Wheels")
-                if wheels then
-                    local frontWheels = {"FR", "FL"}
-                    local rearWheels = {"RL", "RR"}
-                    for _, wheelName in pairs(frontWheels) do
-                        local wheel = wheels:FindFirstChild(wheelName)
-                        if wheel then
-                            local constraint = wheel:FindFirstChild("CylindricalConstraint")
-                            if constraint then
-                                constraint.InclinationAngle = frontAngle
-                            end
-                        end
-                    end
-                    for _, wheelName in pairs(rearWheels) do
-                        local wheel = wheels:FindFirstChild(wheelName)
-                        if wheel then
-                            local constraint = wheel:FindFirstChild("CylindricalConstraint")
-                            if constraint then
-                                constraint.InclinationAngle = rearAngle
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
+-- Função para alterar a cambagem e o FreeLength das rodas
+local function applyChanges()
+	-- Obter valores de Cambagem
+	local frontCamber = tonumber(frontCamberTextBox.Text) or 0
+	local rearCamber = tonumber(rearCamberTextBox.Text) or 0
+	
+	-- Obter valores de FreeLength
+	local frontFreeLength = tonumber(frontFreeLengthTextBox.Text) or 0
+	local rearFreeLength = tonumber(rearFreeLengthTextBox.Text) or 0
+	
+	-- Localizar a coleção de carros no workspace
+	local carCollection = workspace:FindFirstChild("CarCollection")
+	if carCollection then
+		local playerCar = carCollection:FindFirstChild(player.Name)
+		if playerCar then
+			local car = playerCar:FindFirstChild("Car")
+			if car then
+				local wheels = car:FindFirstChild("Wheels")
+				if wheels then
+					local frontWheels = {"FR", "FL"}
+					local rearWheels = {"RL", "RR"}
+
+					-- Alterar Cambagem
+					for _, wheelName in pairs(frontWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local constraint = wheel:FindFirstChild("CylindricalConstraint")
+							if constraint then
+								constraint.InclinationAngle = frontCamber
+							end
+						end
+					end
+					for _, wheelName in pairs(rearWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local constraint = wheel:FindFirstChild("CylindricalConstraint")
+							if constraint then
+								constraint.InclinationAngle = rearCamber
+							end
+						end
+					end
+
+					-- Alterar FreeLength
+					for _, wheelName in pairs(frontWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local spring = wheel:FindFirstChild("SpringConstraint")
+							if spring then
+								spring.FreeLength = frontFreeLength
+							end
+						end
+					end
+					for _, wheelName in pairs(rearWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local spring = wheel:FindFirstChild("SpringConstraint")
+							if spring then
+								spring.FreeLength = rearFreeLength
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 end
 
--- Aplicar mudanças ao clicar no botão
-applyButton.MouseButton1Click:Connect(changeCamber)
+-- Conectar o botão "Aplicar" à função
+applyButton.MouseButton1Click:Connect(applyChanges)
