@@ -19,6 +19,11 @@ mainButton.Draggable = true
 mainButton.Active = true
 mainButton.Selectable = true
 
+-- Adicionar bordas arredondadas ao botão principal
+local mainButtonCorner = Instance.new("UICorner")
+mainButtonCorner.CornerRadius = UDim.new(0, 12)
+mainButtonCorner.Parent = mainButton
+
 -- Criar Frame da Interface
 local uiFrame = Instance.new("Frame")
 uiFrame.Size = UDim2.new(0, 450, 0, 400)
@@ -29,89 +34,218 @@ uiFrame.Active = true
 uiFrame.Draggable = true
 uiFrame.Parent = screenGui
 
+-- Adicionar bordas arredondadas ao frame da interface
+local uiFrameCorner = Instance.new("UICorner")
+uiFrameCorner.CornerRadius = UDim.new(0, 16)
+uiFrameCorner.Parent = uiFrame
+
 -- Título da interface
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0, 40)
 titleLabel.Position = UDim2.new(0, 0, 0, 0)
 titleLabel.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-titleLabel.Text = "Ajustes de Suspensão"
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Text = "Suspension Adjustments"
+titleLabel.TextColor3 = Color3.fromRGB(127, 127, 127)
 titleLabel.TextScaled = true
 titleLabel.Parent = uiFrame
 
 -- Criar título para a seção dianteira
 local frontLabel = Instance.new("TextLabel")
-frontLabel.Size = UDim2.new(0, 100, 0, 30)
-frontLabel.Position = UDim2.new(0.1, 0, 0.1, 0)
+frontLabel.Size = UDim2.new(0, 150, 0, 30)
+frontLabel.Position = UDim2.new(0, 40, 0, 50)
 frontLabel.BackgroundTransparency = 1
-frontLabel.Text = "Dianteira"
+frontLabel.Text = "Front"
 frontLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 frontLabel.TextScaled = true
 frontLabel.Parent = uiFrame
 
 -- Criar título para a seção traseira
 local rearLabel = Instance.new("TextLabel")
-rearLabel.Size = UDim2.new(0, 100, 0, 30)
-rearLabel.Position = UDim2.new(0.6, 0, 0.1, 0)
+rearLabel.Size = UDim2.new(0, 150, 0, 30)
+rearLabel.Position = UDim2.new(0, 260, 0, 50)
 rearLabel.BackgroundTransparency = 1
-rearLabel.Text = "Traseira"
+rearLabel.Text = "Rear"
 rearLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 rearLabel.TextScaled = true
 rearLabel.Parent = uiFrame
 
+-- Rótulo "Camber" para dianteira
+local frontCamberLabel = Instance.new("TextLabel")
+frontCamberLabel.Size = UDim2.new(0, 60, 0, 35)
+frontCamberLabel.Position = UDim2.new(0, 40, 0, 90)
+frontCamberLabel.BackgroundTransparency = 1
+frontCamberLabel.Text = "Camber:"
+frontCamberLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+frontCamberLabel.TextScaled = true
+frontCamberLabel.Parent = uiFrame
+
 -- Caixa de texto para Cambagem dianteira
 local frontCamberTextBox = Instance.new("TextBox")
-frontCamberTextBox.Size = UDim2.new(0, 150, 0, 35)
-frontCamberTextBox.Position = UDim2.new(0.1, 0, 0.2, 0)
+frontCamberTextBox.Size = UDim2.new(0, 90, 0, 35)
+frontCamberTextBox.Position = UDim2.new(0, 110, 0, 90)
 frontCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 frontCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 frontCamberTextBox.ClearTextOnFocus = false
-frontCamberTextBox.Text = ""  -- Inicialmente vazio
+frontCamberTextBox.Text = ""
 frontCamberTextBox.TextScaled = true
 frontCamberTextBox.Parent = uiFrame
 
+-- Adicionar bordas arredondadas à caixa de Cambagem dianteira
+local frontCamberCorner = Instance.new("UICorner")
+frontCamberCorner.CornerRadius = UDim.new(0, 8)
+frontCamberCorner.Parent = frontCamberTextBox
+
+-- Rótulo "Camber" para traseira
+local rearCamberLabel = Instance.new("TextLabel")
+rearCamberLabel.Size = UDim2.new(0, 60, 0, 35)
+rearCamberLabel.Position = UDim2.new(0, 260, 0, 90)
+rearCamberLabel.BackgroundTransparency = 1
+rearCamberLabel.Text = "Camber:"
+rearCamberLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+rearCamberLabel.TextScaled = true
+rearCamberLabel.Parent = uiFrame
+
 -- Caixa de texto para Cambagem traseira
 local rearCamberTextBox = Instance.new("TextBox")
-rearCamberTextBox.Size = UDim2.new(0, 150, 0, 35)
-rearCamberTextBox.Position = UDim2.new(0.6, 0, 0.2, 0)
+rearCamberTextBox.Size = UDim2.new(0, 90, 0, 35)
+rearCamberTextBox.Position = UDim2.new(0, 330, 0, 90)
 rearCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 rearCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 rearCamberTextBox.ClearTextOnFocus = false
-rearCamberTextBox.Text = ""  -- Inicialmente vazio
+rearCamberTextBox.Text = ""
 rearCamberTextBox.TextScaled = true
 rearCamberTextBox.Parent = uiFrame
 
+-- Adicionar bordas arredondadas à caixa de Cambagem traseira
+local rearCamberCorner = Instance.new("UICorner")
+rearCamberCorner.CornerRadius = UDim.new(0, 8)
+rearCamberCorner.Parent = rearCamberTextBox
+
+-- Rótulo "FreeLength" para dianteira
+local frontFreeLengthLabel = Instance.new("TextLabel")
+frontFreeLengthLabel.Size = UDim2.new(0, 60, 0, 35)
+frontFreeLengthLabel.Position = UDim2.new(0, 40, 0, 140)
+frontFreeLengthLabel.BackgroundTransparency = 1
+frontFreeLengthLabel.Text = "Height:"
+frontFreeLengthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+frontFreeLengthLabel.TextScaled = true
+frontFreeLengthLabel.Parent = uiFrame
+
 -- Caixa de texto para FreeLength dianteira
 local frontFreeLengthTextBox = Instance.new("TextBox")
-frontFreeLengthTextBox.Size = UDim2.new(0, 150, 0, 35)
-frontFreeLengthTextBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+frontFreeLengthTextBox.Size = UDim2.new(0, 90, 0, 35)
+frontFreeLengthTextBox.Position = UDim2.new(0, 110, 0, 140)
 frontFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 frontFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 frontFreeLengthTextBox.ClearTextOnFocus = false
-frontFreeLengthTextBox.Text = ""  -- Inicialmente vazio
+frontFreeLengthTextBox.Text = ""
 frontFreeLengthTextBox.TextScaled = true
 frontFreeLengthTextBox.Parent = uiFrame
 
+-- Adicionar bordas arredondadas à caixa de FreeLength dianteira
+local frontFreeLengthCorner = Instance.new("UICorner")
+frontFreeLengthCorner.CornerRadius = UDim.new(0, 8)
+frontFreeLengthCorner.Parent = frontFreeLengthTextBox
+
+-- Rótulo "FreeLength" para traseira
+local rearFreeLengthLabel = Instance.new("TextLabel")
+rearFreeLengthLabel.Size = UDim2.new(0, 60, 0, 35)
+rearFreeLengthLabel.Position = UDim2.new(0, 260, 0, 140)
+rearFreeLengthLabel.BackgroundTransparency = 1
+rearFreeLengthLabel.Text = "Height:"
+rearFreeLengthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+rearFreeLengthLabel.TextScaled = true
+rearFreeLengthLabel.Parent = uiFrame
+
 -- Caixa de texto para FreeLength traseiro
 local rearFreeLengthTextBox = Instance.new("TextBox")
-rearFreeLengthTextBox.Size = UDim2.new(0, 150, 0, 35)
-rearFreeLengthTextBox.Position = UDim2.new(0.6, 0, 0.3, 0)
+rearFreeLengthTextBox.Size = UDim2.new(0, 90, 0, 35)
+rearFreeLengthTextBox.Position = UDim2.new(0, 330, 0, 140)
 rearFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
 rearFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 rearFreeLengthTextBox.ClearTextOnFocus = false
-rearFreeLengthTextBox.Text = ""  -- Inicialmente vazio
+rearFreeLengthTextBox.Text = ""
 rearFreeLengthTextBox.TextScaled = true
 rearFreeLengthTextBox.Parent = uiFrame
 
+-- Adicionar bordas arredondadas à caixa de FreeLength traseira
+local rearFreeLengthCorner = Instance.new("UICorner")
+rearFreeLengthCorner.CornerRadius = UDim.new(0, 8)
+rearFreeLengthCorner.Parent = rearFreeLengthTextBox
+
 -- Botão para aplicar as modificações
 local applyButton = Instance.new("TextButton")
-applyButton.Size = UDim2.new(0, 250, 0, 40)
-applyButton.Position = UDim2.new(0.5, -125, 0.75, 0)
+applyButton.Size = UDim2.new(0, 70, 0, 40)
+applyButton.Position = UDim2.new(1, -90, 1, -50)
 applyButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
-applyButton.Text = "Aplicar Modificações"
+applyButton.Text = "Apply"
 applyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 applyButton.TextScaled = true
 applyButton.Parent = uiFrame
+
+-- Adicionar bordas arredondadas ao botão Apply
+local applyButtonCorner = Instance.new("UICorner")
+applyButtonCorner.CornerRadius = UDim.new(0, 10)
+applyButtonCorner.Parent = applyButton
+
+-- Botão LowRider
+local lowRiderButton = Instance.new("TextButton")
+lowRiderButton.Size = UDim2.new(0, 90, 0, 40)
+lowRiderButton.Position = UDim2.new(1, -190, 1, -50) -- Ao lado do Apply com margem
+lowRiderButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+lowRiderButton.Text = "LowRider: OFF"
+lowRiderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+lowRiderButton.TextScaled = true
+lowRiderButton.Parent = uiFrame
+
+-- Adicionar bordas arredondadas ao botão LowRider
+local lowRiderButtonCorner = Instance.new("UICorner")
+lowRiderButtonCorner.CornerRadius = UDim.new(0, 10)
+lowRiderButtonCorner.Parent = lowRiderButton
+
+-- Variável para controlar o estado do LowRider
+local lowRiderActive = false
+
+-- Função para o efeito LowRider
+local function lowRiderEffect()
+    while lowRiderActive do
+        local carCollection = workspace:FindFirstChild("CarCollection")
+        if carCollection then
+            local playerCar = carCollection:FindFirstChild(player.Name)
+            if playerCar then
+                local car = playerCar:FindFirstChild("Car")
+                if car then
+                    local wheels = car:FindFirstChild("Wheels")
+                    if wheels then
+                        local frontWheels = {"FR", "FL"}
+                        -- Abaixar para 0.8
+                        for _, wheelName in pairs(frontWheels) do
+                            local wheel = wheels:FindFirstChild(wheelName)
+                            if wheel then
+                                local spring = wheel:FindFirstChild("Spring")
+                                if spring then
+                                    spring.FreeLength = 0.8
+                                end
+                            end
+                        end
+                        wait(0.5) -- Esperar 0.5 segundos
+                        -- Subir para 1.5
+                        for _, wheelName in pairs(frontWheels) do
+                            local wheel = wheels:FindFirstChild(wheelName)
+                            if wheel then
+                                local spring = wheel:FindFirstChild("Spring")
+                                if spring then
+                                    spring.FreeLength = 1.5
+                                end
+                            end
+                        end
+                        wait(0.5) -- Esperar 0.5 segundos
+                    end
+                end
+            end
+        end
+    end
+end
 
 -- Alternar visibilidade da interface
 mainButton.MouseButton1Click:Connect(function()
@@ -199,4 +333,14 @@ end
 applyButton.MouseButton1Click:Connect(function()
     applyCambers()
     applyFreeLengths()
+end)
+
+-- Conectar o botão LowRider
+lowRiderButton.MouseButton1Click:Connect(function()
+    lowRiderActive = not lowRiderActive
+    lowRiderButton.Text = lowRiderActive and "LowRider: ON" or "LowRider: OFF"
+    lowRiderButton.BackgroundColor3 = lowRiderActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(0, 150, 255)
+    if lowRiderActive then
+        spawn(lowRiderEffect) -- Inicia o loop em uma nova thread
+    end
 end)
