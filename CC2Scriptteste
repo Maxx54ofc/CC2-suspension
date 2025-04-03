@@ -239,7 +239,7 @@ local function lowRiderEffect()
                                 end
                             end
                         end
-                        wait(0.3) -- Esperar 0.3 segundos
+                        wait(0.3) -- Esperar 0.3 segundoss
                     end
                 end
             end
