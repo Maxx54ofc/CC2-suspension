@@ -228,18 +228,18 @@ local function lowRiderEffect()
                                 end
                             end
                         end
-                        wait(0.5) -- Esperar 0.5 segundos
+                        wait(0.3) -- Esperar 0.5 segundos
                         -- Subir para 1.5
                         for _, wheelName in pairs(frontWheels) do
                             local wheel = wheels:FindFirstChild(wheelName)
                             if wheel then
                                 local spring = wheel:FindFirstChild("Spring")
                                 if spring then
-                                    spring.FreeLength = 1.5
+                                    spring.FreeLength = 10
                                 end
                             end
                         end
-                        wait(0.5) -- Esperar 0.5 segundos
+                        wait(0.3) -- Esperar 0.3 segundos
                     end
                 end
             end
