@@ -19,12 +19,11 @@ mainButton.Draggable = true
 mainButton.Active = true
 mainButton.Selectable = true
 
--- Adicionar bordas arredondadas ao botão principal
 local mainButtonCorner = Instance.new("UICorner")
 mainButtonCorner.CornerRadius = UDim.new(0, 12)
 mainButtonCorner.Parent = mainButton
 
--- Criar Frame da Interface
+-- Criar Frame da Interface com Scrolling
 local uiFrame = Instance.new("Frame")
 uiFrame.Size = UDim2.new(0, 450, 0, 400)
 uiFrame.Position = UDim2.new(0.1, 50, 0.1, 0)
@@ -34,10 +33,18 @@ uiFrame.Active = true
 uiFrame.Draggable = true
 uiFrame.Parent = screenGui
 
--- Adicionar bordas arredondadas ao frame da interface
 local uiFrameCorner = Instance.new("UICorner")
 uiFrameCorner.CornerRadius = UDim.new(0, 16)
 uiFrameCorner.Parent = uiFrame
+
+-- Adicionar ScrollingFrame
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(1, -20, 1, -60)
+scrollingFrame.Position = UDim2.new(0, 10, 0, 50)
+scrollingFrame.BackgroundTransparency = 1
+scrollingFrame.ScrollBarThickness = 8
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 600) -- Ajuste conforme necessário
+scrollingFrame.Parent = uiFrame
 
 -- Título da interface
 local titleLabel = Instance.new("TextLabel")
@@ -49,131 +56,68 @@ titleLabel.TextColor3 = Color3.fromRGB(127, 127, 127)
 titleLabel.TextScaled = true
 titleLabel.Parent = uiFrame
 
--- Criar título para a seção dianteira
-local frontLabel = Instance.new("TextLabel")
-frontLabel.Size = UDim2.new(0, 150, 0, 30)
-frontLabel.Position = UDim2.new(0, 40, 0, 50)
-frontLabel.BackgroundTransparency = 1
-frontLabel.Text = "Front"
-frontLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontLabel.TextScaled = true
-frontLabel.Parent = uiFrame
+-- Função para criar elementos de UI
+local function createLabel(text, size, pos, parent)
+    local label = Instance.new("TextLabel")
+    label.Size = size
+    label.Position = pos
+    label.BackgroundTransparency = 1
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextScaled = true
+    label.Parent = parent
+    return label
+end
 
--- Criar título para a seção traseira
-local rearLabel = Instance.new("TextLabel")
-rearLabel.Size = UDim2.new(0, 150, 0, 30)
-rearLabel.Position = UDim2.new(0, 260, 0, 50)
-rearLabel.BackgroundTransparency = 1
-rearLabel.Text = "Rear"
-rearLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearLabel.TextScaled = true
-rearLabel.Parent = uiFrame
+local function createTextBox(size, pos, parent)
+    local textBox = Instance.new("TextBox")
+    textBox.Size = size
+    textBox.Position = pos
+    textBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+    textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textBox.ClearTextOnFocus = false
+    textBox.Text = ""
+    textBox.TextScaled = true
+    textBox.Parent = parent
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 8)
+    corner.Parent = textBox
+    return textBox
+end
 
--- Rótulo "Camber" para dianteira
-local frontCamberLabel = Instance.new("TextLabel")
-frontCamberLabel.Size = UDim2.new(0, 60, 0, 35)
-frontCamberLabel.Position = UDim2.new(0, 40, 0, 90)
-frontCamberLabel.BackgroundTransparency = 1
-frontCamberLabel.Text = "Camber:"
-frontCamberLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontCamberLabel.TextScaled = true
-frontCamberLabel.Parent = uiFrame
+-- Elementos existentes
+createLabel("Front", UDim2.new(0, 150, 0, 30), UDim2.new(0, 30, 0, 10), scrollingFrame)
+createLabel("Rear", UDim2.new(0, 150, 0, 30), UDim2.new(0, 250, 0, 10), scrollingFrame)
 
--- Caixa de texto para Cambagem dianteira
-local frontCamberTextBox = Instance.new("TextBox")
-frontCamberTextBox.Size = UDim2.new(0, 90, 0, 35)
-frontCamberTextBox.Position = UDim2.new(0, 110, 0, 90)
-frontCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-frontCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontCamberTextBox.ClearTextOnFocus = false
-frontCamberTextBox.Text = ""
-frontCamberTextBox.TextScaled = true
-frontCamberTextBox.Parent = uiFrame
+createLabel("Camber:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 30, 0, 50), scrollingFrame)
+local frontCamberTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 100, 0, 50), scrollingFrame)
 
--- Adicionar bordas arredondadas à caixa de Cambagem dianteira
-local frontCamberCorner = Instance.new("UICorner")
-frontCamberCorner.CornerRadius = UDim.new(0, 8)
-frontCamberCorner.Parent = frontCamberTextBox
+createLabel("Camber:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 250, 0, 50), scrollingFrame)
+local rearCamberTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 320, 0, 50), scrollingFrame)
 
--- Rótulo "Camber" para traseira
-local rearCamberLabel = Instance.new("TextLabel")
-rearCamberLabel.Size = UDim2.new(0, 60, 0, 35)
-rearCamberLabel.Position = UDim2.new(0, 260, 0, 90)
-rearCamberLabel.BackgroundTransparency = 1
-rearCamberLabel.Text = "Camber:"
-rearCamberLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearCamberLabel.TextScaled = true
-rearCamberLabel.Parent = uiFrame
+createLabel("Height:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 30, 0, 100), scrollingFrame)
+local frontFreeLengthTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 100, 0, 100), scrollingFrame)
 
--- Caixa de texto para Cambagem traseira
-local rearCamberTextBox = Instance.new("TextBox")
-rearCamberTextBox.Size = UDim2.new(0, 90, 0, 35)
-rearCamberTextBox.Position = UDim2.new(0, 330, 0, 90)
-rearCamberTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-rearCamberTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearCamberTextBox.ClearTextOnFocus = false
-rearCamberTextBox.Text = ""
-rearCamberTextBox.TextScaled = true
-rearCamberTextBox.Parent = uiFrame
+createLabel("Height:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 250, 0, 100), scrollingFrame)
+local rearFreeLengthTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 320, 0, 100), scrollingFrame)
 
--- Adicionar bordas arredondadas à caixa de Cambagem traseira
-local rearCamberCorner = Instance.new("UICorner")
-rearCamberCorner.CornerRadius = UDim.new(0, 8)
-rearCamberCorner.Parent = rearCamberTextBox
+-- Controles LowRider
+createLabel("LowRider Settings", UDim2.new(0, 150, 0, 30), UDim2.new(0, 30, 0, 300), scrollingFrame)
 
--- Rótulo "FreeLength" para dianteira
-local frontFreeLengthLabel = Instance.new("TextLabel")
-frontFreeLengthLabel.Size = UDim2.new(0, 60, 0, 35)
-frontFreeLengthLabel.Position = UDim2.new(0, 40, 0, 140)
-frontFreeLengthLabel.BackgroundTransparency = 1
-frontFreeLengthLabel.Text = "Height:"
-frontFreeLengthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontFreeLengthLabel.TextScaled = true
-frontFreeLengthLabel.Parent = uiFrame
+createLabel("Speed:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 30, 0, 340), scrollingFrame)
+local lowRiderSpeedTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 100, 0, 340), scrollingFrame)
+lowRiderSpeedTextBox.Text = "0.3"
 
--- Caixa de texto para FreeLength dianteira
-local frontFreeLengthTextBox = Instance.new("TextBox")
-frontFreeLengthTextBox.Size = UDim2.new(0, 90, 0, 35)
-frontFreeLengthTextBox.Position = UDim2.new(0, 110, 0, 140)
-frontFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-frontFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-frontFreeLengthTextBox.ClearTextOnFocus = false
-frontFreeLengthTextBox.Text = ""
-frontFreeLengthTextBox.TextScaled = true
-frontFreeLengthTextBox.Parent = uiFrame
+createLabel("Min Height:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 30, 0, 390), scrollingFrame)
+local lowRiderMinTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 100, 0, 390), scrollingFrame)
+lowRiderMinTextBox.Text = "0.8"
 
--- Adicionar bordas arredondadas à caixa de FreeLength dianteira
-local frontFreeLengthCorner = Instance.new("UICorner")
-frontFreeLengthCorner.CornerRadius = UDim.new(0, 8)
-frontFreeLengthCorner.Parent = frontFreeLengthTextBox
+createLabel("Max Height:", UDim2.new(0, 60, 0, 35), UDim2.new(0, 30, 0, 440), scrollingFrame)
+local lowRiderMaxTextBox = createTextBox(UDim2.new(0, 90, 0, 35), UDim2.new(0, 100, 0, 440), scrollingFrame)
+lowRiderMaxTextBox.Text = "10"
 
--- Rótulo "FreeLength" para traseira
-local rearFreeLengthLabel = Instance.new("TextLabel")
-rearFreeLengthLabel.Size = UDim2.new(0, 60, 0, 35)
-rearFreeLengthLabel.Position = UDim2.new(0, 260, 0, 140)
-rearFreeLengthLabel.BackgroundTransparency = 1
-rearFreeLengthLabel.Text = "Height:"
-rearFreeLengthLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearFreeLengthLabel.TextScaled = true
-rearFreeLengthLabel.Parent = uiFrame
-
--- Caixa de texto para FreeLength traseiro
-local rearFreeLengthTextBox = Instance.new("TextBox")
-rearFreeLengthTextBox.Size = UDim2.new(0, 90, 0, 35)
-rearFreeLengthTextBox.Position = UDim2.new(0, 330, 0, 140)
-rearFreeLengthTextBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-rearFreeLengthTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-rearFreeLengthTextBox.ClearTextOnFocus = false
-rearFreeLengthTextBox.Text = ""
-rearFreeLengthTextBox.TextScaled = true
-rearFreeLengthTextBox.Parent = uiFrame
-
--- Adicionar bordas arredondadas à caixa de FreeLength traseira
-local rearFreeLengthCorner = Instance.new("UICorner")
-rearFreeLengthCorner.CornerRadius = UDim.new(0, 8)
-rearFreeLengthCorner.Parent = rearFreeLengthTextBox
-
--- Botão para aplicar as modificações
+-- Botões
 local applyButton = Instance.new("TextButton")
 applyButton.Size = UDim2.new(0, 70, 0, 40)
 applyButton.Position = UDim2.new(1, -90, 1, -50)
@@ -183,32 +127,33 @@ applyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 applyButton.TextScaled = true
 applyButton.Parent = uiFrame
 
--- Adicionar bordas arredondadas ao botão Apply
 local applyButtonCorner = Instance.new("UICorner")
 applyButtonCorner.CornerRadius = UDim.new(0, 10)
 applyButtonCorner.Parent = applyButton
 
--- Botão LowRider
 local lowRiderButton = Instance.new("TextButton")
 lowRiderButton.Size = UDim2.new(0, 90, 0, 40)
-lowRiderButton.Position = UDim2.new(1, -190, 1, -50) -- Ao lado do Apply com margem
+lowRiderButton.Position = UDim2.new(1, -190, 1, -50)
 lowRiderButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
 lowRiderButton.Text = "LowRider: OFF"
 lowRiderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 lowRiderButton.TextScaled = true
 lowRiderButton.Parent = uiFrame
 
--- Adicionar bordas arredondadas ao botão LowRider
 local lowRiderButtonCorner = Instance.new("UICorner")
 lowRiderButtonCorner.CornerRadius = UDim.new(0, 10)
 lowRiderButtonCorner.Parent = lowRiderButton
 
--- Variável para controlar o estado do LowRider
+-- Variáveis
 local lowRiderActive = false
 
--- Função para o efeito LowRider
+-- Função LowRider atualizada
 local function lowRiderEffect()
     while lowRiderActive do
+        local speed = tonumber(lowRiderSpeedTextBox.Text) or 0.3
+        local minHeight = tonumber(lowRiderMinTextBox.Text) or 0.8
+        local maxHeight = tonumber(lowRiderMaxTextBox.Text) or 10
+        
         local carCollection = workspace:FindFirstChild("CarCollection")
         if carCollection then
             local playerCar = carCollection:FindFirstChild(player.Name)
@@ -218,28 +163,28 @@ local function lowRiderEffect()
                     local wheels = car:FindFirstChild("Wheels")
                     if wheels then
                         local frontWheels = {"FR", "FL"}
-                        -- Abaixar para 0.8
+                        -- Abaixar
                         for _, wheelName in pairs(frontWheels) do
                             local wheel = wheels:FindFirstChild(wheelName)
                             if wheel then
                                 local spring = wheel:FindFirstChild("Spring")
                                 if spring then
-                                    spring.FreeLength = 0.8
+                                    spring.FreeLength = minHeight
                                 end
                             end
                         end
-                        wait(0.3) -- Esperar 0.5 segundos
-                        -- Subir para 1.5
+                        wait(speed)
+                        -- Subir
                         for _, wheelName in pairs(frontWheels) do
                             local wheel = wheels:FindFirstChild(wheelName)
                             if wheel then
                                 local spring = wheel:FindFirstChild("Spring")
                                 if spring then
-                                    spring.FreeLength = 10
+                                    spring.FreeLength = maxHeight
                                 end
                             end
                         end
-                        wait(0.3) -- Esperar 0.3 segundoss
+                        wait(speed)
                     end
                 end
             end
@@ -247,13 +192,12 @@ local function lowRiderEffect()
     end
 end
 
--- Alternar visibilidade da interface
+-- Funções existentes
 mainButton.MouseButton1Click:Connect(function()
     uiFrame.Visible = not uiFrame.Visible
     mainButton.Text = uiFrame.Visible and "-" or "+"
 end)
 
--- Função para aplicar modificações de cambagem
 local function applyCambers()
     local frontCamber = tonumber(frontCamberTextBox.Text) or 0
     local rearCamber = tonumber(rearCamberTextBox.Text) or 0
@@ -291,7 +235,6 @@ local function applyCambers()
     end
 end
 
--- Função para aplicar modificações de FreeLength
 local function applyFreeLengths()
     local frontFreeLength = tonumber(frontFreeLengthTextBox.Text) or 0
     local rearFreeLength = tonumber(rearFreeLengthTextBox.Text) or 0
@@ -329,18 +272,16 @@ local function applyFreeLengths()
     end
 end
 
--- Conectar o botão de aplicação à função
 applyButton.MouseButton1Click:Connect(function()
     applyCambers()
     applyFreeLengths()
 end)
 
--- Conectar o botão LowRider
 lowRiderButton.MouseButton1Click:Connect(function()
     lowRiderActive = not lowRiderActive
     lowRiderButton.Text = lowRiderActive and "LowRider: ON" or "LowRider: OFF"
     lowRiderButton.BackgroundColor3 = lowRiderActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(0, 150, 255)
     if lowRiderActive then
-        spawn(lowRiderEffect) -- Inicia o loop em uma nova thread
+        spawn(lowRiderEffect)
     end
 end)
