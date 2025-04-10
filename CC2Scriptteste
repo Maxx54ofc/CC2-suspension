@@ -6,55 +6,79 @@ local workspace = game:GetService("Workspace")
 -- Criar ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = playerGui
+screenGui.Enabled = true
 
 -- Criar Botão Principal
 local mainButton = Instance.new("TextButton")
-mainButton.Size = UDim2.new(0, 45, 0, 45)
+mainButton.Size = UDim2.new(0, 50, 0, 50)
 mainButton.Position = UDim2.new(0.1, 0, 0.1, 0)
-mainButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+mainButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 mainButton.Text = "+"
+mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 mainButton.TextScaled = true
 mainButton.Parent = screenGui
 mainButton.Draggable = true
 mainButton.Active = true
 mainButton.Selectable = true
+mainButton.Visible = true
 
 local mainButtonCorner = Instance.new("UICorner")
-mainButtonCorner.CornerRadius = UDim.new(0, 12)
+mainButtonCorner.CornerRadius = UDim.new(1, 0)
 mainButtonCorner.Parent = mainButton
 
--- Criar Frame da Interface com Scrolling
+local mainButtonStroke = Instance.new("UIStroke")
+mainButtonStroke.Color = Color3.fromRGB(88, 137, 192)
+mainButtonStroke.Thickness = 2
+mainButtonStroke.Parent = mainButton
+
+local mainButtonTextStroke = Instance.new("UIStroke")
+mainButtonTextStroke.Color = Color3.fromRGB(25, 45, 58)
+mainButtonTextStroke.Thickness = 1
+mainButtonTextStroke.Parent = mainButton
+
+-- Criar Frame da Interface
 local uiFrame = Instance.new("Frame")
-uiFrame.Size = UDim2.new(0, 350, 0, 300) -- Reduzido de 450x400
-uiFrame.Position = UDim2.new(0.1, 50, 0.1, 0)
-uiFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+uiFrame.Size = UDim2.new(0, 350, 0, 300)
+uiFrame.Position = UDim2.new(0.1, 60, 0.1, 0)
+uiFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 uiFrame.Visible = false
 uiFrame.Active = true
 uiFrame.Draggable = true
 uiFrame.Parent = screenGui
 
 local uiFrameCorner = Instance.new("UICorner")
-uiFrameCorner.CornerRadius = UDim.new(0, 16)
+uiFrameCorner.CornerRadius = UDim.new(0, 12)
 uiFrameCorner.Parent = uiFrame
+
+local uiFrameStroke = Instance.new("UIStroke")
+uiFrameStroke.Color = Color3.fromRGB(88, 137, 192)
+uiFrameStroke.Thickness = 1
+uiFrameStroke.Parent = uiFrame
 
 -- Adicionar ScrollingFrame
 local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, -20, 1, -50) -- Ajustado para caber no uiFrame menor
+scrollingFrame.Size = UDim2.new(1, -20, 1, -50)
 scrollingFrame.Position = UDim2.new(0, 10, 0, 40)
 scrollingFrame.BackgroundTransparency = 1
-scrollingFrame.ScrollBarThickness = 6 -- Reduzido de 8
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 600) -- Reduzido de 800
+scrollingFrame.ScrollBarThickness = 6
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 650)
 scrollingFrame.Parent = uiFrame
 
 -- Título da interface
 local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, 0, 0, 30) -- Reduzido de 40
-titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-titleLabel.Text = "Suspension Adjustments"
-titleLabel.TextColor3 = Color3.fromRGB(127, 127, 127)
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 5)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "Suspension Control"
+titleLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 titleLabel.TextScaled = true
+titleLabel.Font = Enum.Font.SourceSansBold
 titleLabel.Parent = uiFrame
+
+local titleLabelStroke = Instance.new("UIStroke")
+titleLabelStroke.Color = Color3.fromRGB(25, 45, 58)
+titleLabelStroke.Thickness = 1
+titleLabelStroke.Parent = titleLabel
 
 -- Funções auxiliares
 local function createLabel(text, size, pos, parent)
@@ -63,9 +87,16 @@ local function createLabel(text, size, pos, parent)
 	label.Position = pos
 	label.BackgroundTransparency = 1
 	label.Text = text
-	label.TextColor3 = Color3.fromRGB(255, 255, 255)
+	label.TextColor3 = Color3.fromRGB(220, 220, 220)
 	label.TextScaled = true
+	label.Font = Enum.Font.SourceSans
 	label.Parent = parent
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(25, 45, 58)
+	stroke.Thickness = 1
+	stroke.Parent = label
+
 	return label
 end
 
@@ -73,16 +104,27 @@ local function createTextBox(size, pos, parent)
 	local textBox = Instance.new("TextBox")
 	textBox.Size = size
 	textBox.Position = pos
-	textBox.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+	textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 	textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 	textBox.ClearTextOnFocus = false
 	textBox.Text = ""
 	textBox.TextScaled = true
+	textBox.Font = Enum.Font.SourceSans
 	textBox.Parent = parent
 
 	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 6) -- Reduzido de 8
+	corner.CornerRadius = UDim.new(0, 6)
 	corner.Parent = textBox
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(88, 137, 192)
+	stroke.Thickness = 1
+	stroke.Parent = textBox
+
+	local textStroke = Instance.new("UIStroke")
+	textStroke.Color = Color3.fromRGB(25, 45, 58)
+	textStroke.Thickness = 1
+	textStroke.Parent = textBox
 
 	textBox.Focused:Connect(function()
 		textBox.Text = ""
@@ -95,193 +137,224 @@ local function createWheelButton(text, size, pos, parent)
 	local button = Instance.new("TextButton")
 	button.Size = size
 	button.Position = pos
-	button.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Verde por padrão
+	button.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
 	button.Text = text
 	button.TextColor3 = Color3.fromRGB(255, 255, 255)
 	button.TextScaled = true
+	button.Font = Enum.Font.SourceSans
 	button.Parent = parent
 
 	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 6) -- Reduzido de 8
+	corner.CornerRadius = UDim.new(0, 6)
 	corner.Parent = button
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(88, 137, 192)
+	stroke.Thickness = 1
+	stroke.Parent = button
+
+	local textStroke = Instance.new("UIStroke")
+	textStroke.Color = Color3.fromRGB(25, 45, 58)
+	textStroke.Thickness = 1
+	textStroke.Parent = button
 
 	return button
 end
 
 -- Elementos da UI
-createLabel("Front", UDim2.new(0, 100, 0, 20), UDim2.new(0, 20, 0, 10), scrollingFrame)
-createLabel("Rear", UDim2.new(0, 100, 0, 20), UDim2.new(0, 200, 0, 10), scrollingFrame)
+local leftColumnX = 20
+local rightColumnX = 180
 
--- Camber
-createLabel("Camber:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 35), scrollingFrame)
-local frontCamberTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 35), scrollingFrame)
-createLabel("Camber:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 35), scrollingFrame)
-local rearCamberTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 35), scrollingFrame)
+createLabel("Camber", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 10), scrollingFrame)
+local frontCamberTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 10), scrollingFrame)
+createLabel("Camber", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 10), scrollingFrame)
+local rearCamberTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 10), scrollingFrame)
 
--- Height
-createLabel("Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 65), scrollingFrame)
-local frontFreeLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 65), scrollingFrame)
-createLabel("Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 65), scrollingFrame)
-local rearFreeLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 65), scrollingFrame)
+createLabel("Height", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 40), scrollingFrame)
+local frontFreeLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 40), scrollingFrame)
+createLabel("Height", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 40), scrollingFrame)
+local rearFreeLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 40), scrollingFrame)
 
--- UpperLimit
-createLabel("UpperLimit:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 95), scrollingFrame)
-local frontUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 95), scrollingFrame)
-frontUpperLimitTextBox.Text = ""
-createLabel("UpperLimit:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 95), scrollingFrame)
-local rearUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 95), scrollingFrame)
-rearUpperLimitTextBox.Text = ""
+createLabel("UpperLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 70), scrollingFrame)
+local frontUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 70), scrollingFrame)
+frontUpperLimitTextBox.Text = "0"
+createLabel("UpperLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 70), scrollingFrame)
+local rearUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 70), scrollingFrame)
+rearUpperLimitTextBox.Text = "0"
 
--- LowerLimit
-createLabel("LowerLimit:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 125), scrollingFrame)
-local frontLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 125), scrollingFrame)
-frontLowerLimitTextBox.Text = ""
-createLabel("LowerLimit:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 125), scrollingFrame)
-local rearLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 125), scrollingFrame)
-rearLowerLimitTextBox.Text = ""
+createLabel("LowerLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 100), scrollingFrame)
+local frontLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 100), scrollingFrame)
+frontLowerLimitTextBox.Text = "0"
+createLabel("LowerLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 100), scrollingFrame)
+local rearLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 100), scrollingFrame)
+rearLowerLimitTextBox.Text = "0"
 
--- MaxLength
-createLabel("MaxLength:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 155), scrollingFrame)
-local frontMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 155), scrollingFrame)
-frontMaxLengthTextBox.Text = ""
-createLabel("MaxLength:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 155), scrollingFrame)
-local rearMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 155), scrollingFrame)
-rearMaxLengthTextBox.Text = ""
+createLabel("MaxLength", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 130), scrollingFrame)
+local frontMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 130), scrollingFrame)
+frontMaxLengthTextBox.Text = "0"
+createLabel("MaxLength", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 130), scrollingFrame)
+local rearMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 130), scrollingFrame)
+rearMaxLengthTextBox.Text = "0"
 
--- Damping
-createLabel("Damping:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 185), scrollingFrame)
-local frontDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 185), scrollingFrame)
-frontDampingTextBox.Text = ""
-createLabel("Damping:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 185), scrollingFrame)
-local rearDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 185), scrollingFrame)
-rearDampingTextBox.Text = ""
+createLabel("Damping", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 160), scrollingFrame)
+local frontDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 160), scrollingFrame)
+frontDampingTextBox.Text = "0"
+createLabel("Damping", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 160), scrollingFrame)
+local rearDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 160), scrollingFrame)
+rearDampingTextBox.Text = "0"
 
--- Seleção de rodas para suspensão
-createLabel("Wheel Selection", UDim2.new(0, 100, 0, 20), UDim2.new(0, 20, 0, 215), scrollingFrame)
-local wheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, 20, 0, 240), scrollingFrame)
-local wheelFLButton = createWheelButton("FL", UDim2.new(0, 30, 0, 30), UDim2.new(0, 60, 0, 240), scrollingFrame)
-local wheelRLButton = createWheelButton("RL", UDim2.new(0, 30, 0, 30), UDim2.new(0, 200, 0, 240), scrollingFrame)
-local wheelRRButton = createWheelButton("RR", UDim2.new(0, 30, 0, 30), UDim2.new(0, 240, 0, 240), scrollingFrame)
+createLabel("Suspension Wheels", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColumnX, 0, 190), scrollingFrame)
+local wheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX, 0, 215), scrollingFrame)
+local wheelFLButton = createWheelButton("FL", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX + 40, 0, 215), scrollingFrame)
+local wheelRLButton = createWheelButton("RL", UDim2.new(0, 30, 0, 30), UDim2.new(0, rightColumnX, 0, 215), scrollingFrame)
+local wheelRRButton = createWheelButton("RR", UDim2.new(0, 30, 0, 30), UDim2.new(0, rightColumnX + 40, 0, 215), scrollingFrame)
 
--- LowRider Settings
-createLabel("LowRider Settings", UDim2.new(0, 100, 0, 20), UDim2.new(0, 20, 0, 275), scrollingFrame)
+createLabel("LowRider Settings", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColumnX, 0, 250), scrollingFrame)
 
--- Frente (Front)
-createLabel("Front", UDim2.new(0, 50, 0, 20), UDim2.new(0, 20, 0, 300), scrollingFrame)
-createLabel("Speed:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 325), scrollingFrame)
-local lowRiderFrontSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 325), scrollingFrame)
+createLabel("Speed", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 275), scrollingFrame)
+local lowRiderFrontSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 275), scrollingFrame)
 lowRiderFrontSpeedTextBox.Text = "0.3"
-createLabel("Max Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 355), scrollingFrame)
-local lowRiderFrontMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 355), scrollingFrame)
-lowRiderFrontMinTextBox.Text = "2"
-createLabel("Min Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 20, 0, 385), scrollingFrame)
-local lowRiderFrontMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 80, 0, 385), scrollingFrame)
-lowRiderFrontMaxTextBox.Text = "1"
+createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 305), scrollingFrame)
+local lowRiderFrontMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 305), scrollingFrame)
+lowRiderFrontMinTextBox.Text = "0.8"
+createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 335), scrollingFrame)
+local lowRiderFrontMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 335), scrollingFrame)
+lowRiderFrontMaxTextBox.Text = "10"
 
--- Trás (Rear)
-createLabel("Rear", UDim2.new(0, 50, 0, 20), UDim2.new(0, 200, 0, 300), scrollingFrame)
-createLabel("Speed:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 325), scrollingFrame)
-local lowRiderRearSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 325), scrollingFrame)
+createLabel("Speed", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 275), scrollingFrame)
+local lowRiderRearSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 275), scrollingFrame)
 lowRiderRearSpeedTextBox.Text = "0.3"
-createLabel("Max Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 355), scrollingFrame)
-local lowRiderRearMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 355), scrollingFrame)
-lowRiderRearMinTextBox.Text = "2"
-createLabel("Min Height:", UDim2.new(0, 50, 0, 25), UDim2.new(0, 200, 0, 385), scrollingFrame)
-local lowRiderRearMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, 260, 0, 385), scrollingFrame)
-lowRiderRearMaxTextBox.Text = "1"
+createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 305), scrollingFrame)
+local lowRiderRearMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 305), scrollingFrame)
+lowRiderRearMinTextBox.Text = "0.8"
+createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 335), scrollingFrame)
+local lowRiderRearMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 335), scrollingFrame)
+lowRiderRearMaxTextBox.Text = "10"
 
--- Seleção de rodas para LowRider
-createLabel("LowRider Wheel Selection", UDim2.new(0, 100, 0, 20), UDim2.new(0, 20, 0, 415), scrollingFrame)
-local lowRiderWheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, 20, 0, 440), scrollingFrame)
-local lowRiderWheelFLButton = createWheelButton("FL", UDim2.new(0, 30, 0, 30), UDim2.new(0, 60, 0, 440), scrollingFrame)
-local lowRiderWheelRLButton = createWheelButton("RL", UDim2.new(0, 30, 0, 30), UDim2.new(0, 200, 0, 440), scrollingFrame)
-local lowRiderWheelRRButton = createWheelButton("RR", UDim2.new(0, 30, 0, 30), UDim2.new(0, 240, 0, 440), scrollingFrame)
+createLabel("LowRider Wheels", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColumnX, 0, 365), scrollingFrame)
+local lowRiderWheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX, 0, 390), scrollingFrame)
+local lowRiderWheelFLButton = createWheelButton("FL", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX + 40, 0, 390), scrollingFrame)
+local lowRiderWheelRLButton = createWheelButton("RL", UDim2.new(0, 30, 0, 30), UDim2.new(0, rightColumnX, 0, 390), scrollingFrame)
+local lowRiderWheelRRButton = createWheelButton("RR", UDim2.new(0, 30, 0, 30), UDim2.new(0, rightColumnX + 40, 0, 390), scrollingFrame)
 
 -- Botão LowRider Front
 local lowRiderFrontButton = Instance.new("TextButton")
-lowRiderFrontButton.Size = UDim2.new(0, 70, 0, 30) -- Reduzido de 90x40
-lowRiderFrontButton.Position = UDim2.new(0, 20, 0, 475)
-lowRiderFrontButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+lowRiderFrontButton.Size = UDim2.new(0, 100, 0, 30)
+lowRiderFrontButton.Position = UDim2.new(0, leftColumnX, 0, 425)
+lowRiderFrontButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192) -- Fundo #5889C0 (OFF)
 lowRiderFrontButton.Text = "Front: OFF"
-lowRiderFrontButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+lowRiderFrontButton.TextColor3 = Color3.fromRGB(25, 45, 58) -- Texto #192D3A
 lowRiderFrontButton.TextScaled = true
+lowRiderFrontButton.Font = Enum.Font.SourceSans
 lowRiderFrontButton.Parent = scrollingFrame
 
 local lowRiderFrontButtonCorner = Instance.new("UICorner")
-lowRiderFrontButtonCorner.CornerRadius = UDim.new(0, 8) -- Reduzido de 10
+lowRiderFrontButtonCorner.CornerRadius = UDim.new(0, 8)
 lowRiderFrontButtonCorner.Parent = lowRiderFrontButton
+
+local lowRiderFrontButtonStroke = Instance.new("UIStroke")
+lowRiderFrontButtonStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do botão branca
+lowRiderFrontButtonStroke.Thickness = 1
+lowRiderFrontButtonStroke.Parent = lowRiderFrontButton
+
+local lowRiderFrontButtonTextStroke = Instance.new("UIStroke")
+lowRiderFrontButtonTextStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do texto branca
+lowRiderFrontButtonTextStroke.Thickness = 1
+lowRiderFrontButtonTextStroke.Parent = lowRiderFrontButton
 
 -- Botão LowRider Rear
 local lowRiderRearButton = Instance.new("TextButton")
-lowRiderRearButton.Size = UDim2.new(0, 70, 0, 30) -- Reduzido de 90x40
-lowRiderRearButton.Position = UDim2.new(0, 100, 0, 475)
-lowRiderRearButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+lowRiderRearButton.Size = UDim2.new(0, 100, 0, 30)
+lowRiderRearButton.Position = UDim2.new(0, rightColumnX + 30, 0, 425)
+lowRiderRearButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192) -- Fundo #5889C0 (OFF)
 lowRiderRearButton.Text = "Rear: OFF"
-lowRiderRearButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+lowRiderRearButton.TextColor3 = Color3.fromRGB(25, 45, 58) -- Texto #192D3A
 lowRiderRearButton.TextScaled = true
+lowRiderRearButton.Font = Enum.Font.SourceSans
 lowRiderRearButton.Parent = scrollingFrame
 
 local lowRiderRearButtonCorner = Instance.new("UICorner")
-lowRiderRearButtonCorner.CornerRadius = UDim.new(0, 8) -- Reduzido de 10
+lowRiderRearButtonCorner.CornerRadius = UDim.new(0, 8)
 lowRiderRearButtonCorner.Parent = lowRiderRearButton
+
+local lowRiderRearButtonStroke = Instance.new("UIStroke")
+lowRiderRearButtonStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do botão branca
+lowRiderRearButtonStroke.Thickness = 1
+lowRiderRearButtonStroke.Parent = lowRiderRearButton
+
+local lowRiderRearButtonTextStroke = Instance.new("UIStroke")
+lowRiderRearButtonTextStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do texto branca
+lowRiderRearButtonTextStroke.Thickness = 1
+lowRiderRearButtonTextStroke.Parent = lowRiderRearButton
 
 -- Botão Apply
 local applyButton = Instance.new("TextButton")
-applyButton.Size = UDim2.new(0, 60, 0, 30) -- Reduzido de 70x40
-applyButton.Position = UDim2.new(1, -70, 1, -40)
-applyButton.BackgroundColor3 = Color3.fromRGB(0, 200, 0)
+applyButton.Size = UDim2.new(0, 70, 0, 30)
+applyButton.Position = UDim2.new(1, -90, 1, -35)
+applyButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
 applyButton.Text = "Apply"
-applyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+applyButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 applyButton.TextScaled = true
+applyButton.Font = Enum.Font.SourceSansBold
 applyButton.Parent = uiFrame
 
 local applyButtonCorner = Instance.new("UICorner")
-applyButtonCorner.CornerRadius = UDim.new(0, 8) -- Reduzido de 10
+applyButtonCorner.CornerRadius = UDim.new(0, 8)
 applyButtonCorner.Parent = applyButton
+
+local applyButtonStroke = Instance.new("UIStroke")
+applyButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+applyButtonStroke.Thickness = 1
+applyButtonStroke.Parent = applyButton
+
+local applyButtonTextStroke = Instance.new("UIStroke")
+applyButtonTextStroke.Color = Color3.fromRGB(25, 45, 58)
+applyButtonTextStroke.Thickness = 1
+applyButtonTextStroke.Parent = applyButton
 
 -- Botão Scanner
 local scannerButton = Instance.new("TextButton")
-scannerButton.Size = UDim2.new(0, 60, 0, 30) -- Reduzido de 70x40
-scannerButton.Position = UDim2.new(1, -140, 1, -40)
-scannerButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-scannerButton.Text = "Scanner"
-scannerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+scannerButton.Size = UDim2.new(0, 70, 0, 30)
+scannerButton.Position = UDim2.new(1, -170, 1, -35)
+scannerButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+scannerButton.Text = "Scan"
+scannerButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 scannerButton.TextScaled = true
+scannerButton.Font = Enum.Font.SourceSansBold
 scannerButton.Parent = uiFrame
 
 local scannerButtonCorner = Instance.new("UICorner")
-scannerButtonCorner.CornerRadius = UDim.new(0, 8) -- Reduzido de 10
+scannerButtonCorner.CornerRadius = UDim.new(0, 8)
 scannerButtonCorner.Parent = scannerButton
+
+local scannerButtonStroke = Instance.new("UIStroke")
+scannerButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+scannerButtonStroke.Thickness = 1
+scannerButtonStroke.Parent = scannerButton
+
+local scannerButtonTextStroke = Instance.new("UIStroke")
+scannerButtonTextStroke.Color = Color3.fromRGB(25, 45, 58)
+scannerButtonTextStroke.Thickness = 1
+scannerButtonTextStroke.Parent = scannerButton
 
 -- Variáveis
 local lowRiderFrontActive = false
 local lowRiderRearActive = false
-local selectedWheels = { -- Para ajustes de suspensão, começam ativados
-	FR = true,
-	FL = true,
-	RL = true,
-	RR = true
-}
-local selectedLowRiderWheels = { -- Para LowRider, começam ativados
-	FR = true,
-	FL = true,
-	RL = true,
-	RR = true
-}
+local selectedWheels = { FR = true, FL = true, RL = true, RR = true }
+local selectedLowRiderWheels = { FR = true, FL = true, RL = true, RR = true }
 
 -- Função para alternar seleção de roda
 local function toggleWheelSelection(wheel, button, selectionTable)
 	selectionTable[wheel] = not selectionTable[wheel]
-	button.BackgroundColor3 = selectionTable[wheel] and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+	button.BackgroundColor3 = selectionTable[wheel] and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(200, 0, 0)
 end
 
--- Conectar botões de seleção de rodas para suspensão
+-- Conectar botões de seleção de rodas
 wheelFRButton.MouseButton1Click:Connect(function() toggleWheelSelection("FR", wheelFRButton, selectedWheels) end)
 wheelFLButton.MouseButton1Click:Connect(function() toggleWheelSelection("FL", wheelFLButton, selectedWheels) end)
 wheelRLButton.MouseButton1Click:Connect(function() toggleWheelSelection("RL", wheelRLButton, selectedWheels) end)
 wheelRRButton.MouseButton1Click:Connect(function() toggleWheelSelection("RR", wheelRRButton, selectedWheels) end)
 
--- Conectar botões de seleção de rodas para LowRider
 lowRiderWheelFRButton.MouseButton1Click:Connect(function() toggleWheelSelection("FR", lowRiderWheelFRButton, selectedLowRiderWheels) end)
 lowRiderWheelFLButton.MouseButton1Click:Connect(function() toggleWheelSelection("FL", lowRiderWheelFLButton, selectedLowRiderWheels) end)
 lowRiderWheelRLButton.MouseButton1Click:Connect(function() toggleWheelSelection("RL", lowRiderWheelRLButton, selectedLowRiderWheels) end)
@@ -291,8 +364,8 @@ lowRiderWheelRRButton.MouseButton1Click:Connect(function() toggleWheelSelection(
 local function lowRiderFrontEffect()
 	while lowRiderFrontActive do
 		local speed = tonumber(lowRiderFrontSpeedTextBox.Text) or 0.3
-		local minHeight = tonumber(lowRiderFrontMinTextBox.Text) or 2
-		local maxHeight = tonumber(lowRiderFrontMaxTextBox.Text) or 1
+		local minHeight = tonumber(lowRiderFrontMinTextBox.Text) or 0.8
+		local maxHeight = tonumber(lowRiderFrontMaxTextBox.Text) or 10
 
 		local carCollection = workspace:FindFirstChild("CarCollection")
 		if carCollection then
@@ -338,8 +411,8 @@ end
 local function lowRiderRearEffect()
 	while lowRiderRearActive do
 		local speed = tonumber(lowRiderRearSpeedTextBox.Text) or 0.3
-		local minHeight = tonumber(lowRiderRearMinTextBox.Text) or 2
-		local maxHeight = tonumber(lowRiderRearMaxTextBox.Text) or 1
+		local minHeight = tonumber(lowRiderRearMinTextBox.Text) or 0.8
+		local maxHeight = tonumber(lowRiderRearMaxTextBox.Text) or 10
 
 		local carCollection = workspace:FindFirstChild("CarCollection")
 		if carCollection then
@@ -381,167 +454,7 @@ local function lowRiderRearEffect()
 	end
 end
 
--- Função para aplicar UpperLimit e LowerLimit
-local function applyLimits()
-	local frontUpperLimit = tonumber(frontUpperLimitTextBox.Text) or 0
-	local frontLowerLimit = tonumber(frontLowerLimitTextBox.Text) or 0
-	local rearUpperLimit = tonumber(rearUpperLimitTextBox.Text) or 0
-	local rearLowerLimit = tonumber(rearLowerLimitTextBox.Text) or 0
-
-	local carCollection = workspace:FindFirstChild("CarCollection")
-	if carCollection then
-		local playerCar = carCollection:FindFirstChild(player.Name)
-		if playerCar then
-			local car = playerCar:FindFirstChild("Car")
-			if car then
-				local wheels = car:FindFirstChild("Wheels")
-				if wheels then
-					local frontWheels = {"FR", "FL"}
-					local rearWheels = {"RL", "RR"}
-
-					for _, wheelName in pairs(frontWheels) do
-						if selectedWheels[wheelName] then
-							local wheel = wheels:FindFirstChild(wheelName)
-							if wheel then
-								local constraint = wheel:FindFirstChild("CylindricalConstraint")
-								if constraint then
-									constraint.UpperLimit = frontUpperLimit
-									constraint.LowerLimit = frontLowerLimit
-								end
-							end
-						end
-					end
-
-					for _, wheelName in pairs(rearWheels) do
-						if selectedWheels[wheelName] then
-							local wheel = wheels:FindFirstChild(wheelName)
-							if wheel then
-								local constraint = wheel:FindFirstChild("CylindricalConstraint")
-								if constraint then
-									constraint.UpperLimit = rearUpperLimit
-									constraint.LowerLimit = rearLowerLimit
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end
-
--- Função para aplicar MaxLength e Damping
-local function applySpringProperties()
-	local frontMaxLength = tonumber(frontMaxLengthTextBox.Text) or 0
-	local rearMaxLength = tonumber(rearMaxLengthTextBox.Text) or 0
-	local frontDamping = tonumber(frontDampingTextBox.Text) or 0
-	local rearDamping = tonumber(rearDampingTextBox.Text) or 0
-
-	local carCollection = workspace:FindFirstChild("CarCollection")
-	if carCollection then
-		local playerCar = carCollection:FindFirstChild(player.Name)
-		if playerCar then
-			local car = playerCar:FindFirstChild("Car")
-			if car then
-				local wheels = car:FindFirstChild("Wheels")
-				if wheels then
-					local frontWheels = {"FR", "FL"}
-					local rearWheels = {"RL", "RR"}
-
-					for _, wheelName in pairs(frontWheels) do
-						if selectedWheels[wheelName] then
-							local wheel = wheels:FindFirstChild(wheelName)
-							if wheel then
-								local spring = wheel:FindFirstChild("Spring")
-								if spring then
-									spring.MaxLength = frontMaxLength
-									spring.Damping = frontDamping
-								end
-							end
-						end
-					end
-
-					for _, wheelName in pairs(rearWheels) do
-						if selectedWheels[wheelName] then
-							local wheel = wheels:FindFirstChild(wheelName)
-							if wheel then
-								local spring = wheel:FindFirstChild("Spring")
-								if spring then
-									spring.MaxLength = rearMaxLength
-									spring.Damping = rearDamping
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end
-
--- Função Scanner
-local function scanCarSettings()
-	local carCollection = workspace:FindFirstChild("CarCollection")
-	if carCollection then
-		local playerCar = carCollection:FindFirstChild(player.Name)
-		if playerCar then
-			local car = playerCar:FindFirstChild("Car")
-			if car then
-				local wheels = car:FindFirstChild("Wheels")
-				if wheels then
-					local frontWheels = {"FR", "FL"}
-					local rearWheels = {"RL", "RR"}
-
-					for _, wheelName in pairs(frontWheels) do
-						local wheel = wheels:FindFirstChild(wheelName)
-						if wheel then
-							local constraint = wheel:FindFirstChild("CylindricalConstraint")
-							local spring = wheel:FindFirstChild("Spring")
-							if constraint and spring then
-								frontCamberTextBox.Text = tostring(constraint.InclinationAngle)
-								frontFreeLengthTextBox.Text = tostring(spring.FreeLength)
-								frontUpperLimitTextBox.Text = tostring(constraint.UpperLimit)
-								frontLowerLimitTextBox.Text = tostring(constraint.LowerLimit)
-								frontMaxLengthTextBox.Text = tostring(spring.MaxLength)
-								frontDampingTextBox.Text = tostring(spring.Damping)
-								break
-							end
-						end
-					end
-
-					for _, wheelName in pairs(rearWheels) do
-						local wheel = wheels:FindFirstChild(wheelName)
-						if wheel then
-							local constraint = wheel:FindFirstChild("CylindricalConstraint")
-							local spring = wheel:FindFirstChild("Spring")
-							if constraint and spring then
-								rearCamberTextBox.Text = tostring(constraint.InclinationAngle)
-								rearFreeLengthTextBox.Text = tostring(spring.FreeLength)
-								rearUpperLimitTextBox.Text = tostring(constraint.UpperLimit)
-								rearLowerLimitTextBox.Text = tostring(constraint.LowerLimit)
-								rearMaxLengthTextBox.Text = tostring(spring.MaxLength)
-								rearDampingTextBox.Text = tostring(spring.Damping)
-								break
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end
-
--- Funções existentes
-local success, err = pcall(function()
-	mainButton.MouseButton1Click:Connect(function()
-		uiFrame.Visible = not uiFrame.Visible
-		mainButton.Text = uiFrame.Visible and "-" or "+"
-	end)
-end)
-if not success then
-	warn("Erro ao conectar botão principal: " .. err)
-end
-
+-- Função para aplicar ajustes de suspensão
 local function applyCambers()
 	local frontCamber = tonumber(frontCamberTextBox.Text) or 0
 	local rearCamber = tonumber(rearCamberTextBox.Text) or 0
@@ -624,55 +537,179 @@ local function applyFreeLengths()
 	end
 end
 
--- Botão Apply
-local success, err = pcall(function()
-	applyButton.MouseButton1Click:Connect(function()
-		applyCambers()
-		applyFreeLengths()
-		applyLimits()
-		applySpringProperties()
-	end)
-end)
-if not success then
-	warn("Erro ao conectar botão Apply: " .. err)
-end
+local function applyLimits()
+	local frontUpperLimit = tonumber(frontUpperLimitTextBox.Text) or 0
+	local frontLowerLimit = tonumber(frontLowerLimitTextBox.Text) or 0
+	local rearUpperLimit = tonumber(rearUpperLimitTextBox.Text) or 0
+	local rearLowerLimit = tonumber(rearLowerLimitTextBox.Text) or 0
 
--- Botão LowRider Front
-local success, err = pcall(function()
-	lowRiderFrontButton.MouseButton1Click:Connect(function()
-		lowRiderFrontActive = not lowRiderFrontActive
-		lowRiderFrontButton.Text = lowRiderFrontActive and "Front: ON" or "Front: OFF"
-		lowRiderFrontButton.BackgroundColor3 = lowRiderFrontActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(0, 150, 255)
-		if lowRiderFrontActive then
-			spawn(lowRiderFrontEffect)
+	local carCollection = workspace:FindFirstChild("CarCollection")
+	if carCollection then
+		local playerCar = carCollection:FindFirstChild(player.Name)
+		if playerCar then
+			local car = playerCar:FindFirstChild("Car")
+			if car then
+				local wheels = car:FindFirstChild("Wheels")
+				if wheels then
+					local frontWheels = {"FR", "FL"}
+					local rearWheels = {"RL", "RR"}
+					for _, wheelName in pairs(frontWheels) do
+						if selectedWheels[wheelName] then
+							local wheel = wheels:FindFirstChild(wheelName)
+							if wheel then
+								local constraint = wheel:FindFirstChild("CylindricalConstraint")
+								if constraint then
+									constraint.UpperLimit = frontUpperLimit
+									constraint.LowerLimit = frontLowerLimit
+								end
+							end
+						end
+					end
+					for _, wheelName in pairs(rearWheels) do
+						if selectedWheels[wheelName] then
+							local wheel = wheels:FindFirstChild(wheelName)
+							if wheel then
+								local constraint = wheel:FindFirstChild("CylindricalConstraint")
+								if constraint then
+									constraint.UpperLimit = rearUpperLimit
+									constraint.LowerLimit = rearLowerLimit
+								end
+							end
+						end
+					end
+				end
+			end
 		end
-	end)
-end)
-if not success then
-	warn("Erro ao conectar botão LowRider Front: " .. err)
+	end
 end
 
--- Botão LowRider Rear
-local success, err = pcall(function()
-	lowRiderRearButton.MouseButton1Click:Connect(function()
-		lowRiderRearActive = not lowRiderRearActive
-		lowRiderRearButton.Text = lowRiderRearActive and "Rear: ON" or "Rear: OFF"
-		lowRiderRearButton.BackgroundColor3 = lowRiderRearActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(0, 150, 255)
-		if lowRiderRearActive then
-			spawn(lowRiderRearEffect)
+local function applySpringProperties()
+	local frontMaxLength = tonumber(frontMaxLengthTextBox.Text) or 0
+	local rearMaxLength = tonumber(rearMaxLengthTextBox.Text) or 0
+	local frontDamping = tonumber(frontDampingTextBox.Text) or 0
+	local rearDamping = tonumber(rearDampingTextBox.Text) or 0
+
+	local carCollection = workspace:FindFirstChild("CarCollection")
+	if carCollection then
+		local playerCar = carCollection:FindFirstChild(player.Name)
+		if playerCar then
+			local car = playerCar:FindFirstChild("Car")
+			if car then
+				local wheels = car:FindFirstChild("Wheels")
+				if wheels then
+					local frontWheels = {"FR", "FL"}
+					local rearWheels = {"RL", "RR"}
+					for _, wheelName in pairs(frontWheels) do
+						if selectedWheels[wheelName] then
+							local wheel = wheels:FindFirstChild(wheelName)
+							if wheel then
+								local spring = wheel:FindFirstChild("Spring")
+								if spring then
+									spring.MaxLength = frontMaxLength
+									spring.Damping = frontDamping
+								end
+							end
+						end
+					end
+					for _, wheelName in pairs(rearWheels) do
+						if selectedWheels[wheelName] then
+							local wheel = wheels:FindFirstChild(wheelName)
+							if wheel then
+								local spring = wheel:FindFirstChild("Spring")
+								if spring then
+									spring.MaxLength = rearMaxLength
+									spring.Damping = rearDamping
+								end
+							end
+						end
+					end
+				end
+			end
 		end
-	end)
-end)
-if not success then
-	warn("Erro ao conectar botão LowRider Rear: " .. err)
+	end
 end
 
--- Botão Scanner
-local success, err = pcall(function()
-	scannerButton.MouseButton1Click:Connect(function()
-		scanCarSettings()
-	end)
-end)
-if not success then
-	warn("Erro ao conectar botão Scanner: " .. err)
+-- Função Scanner
+local function scanCarSettings()
+	local carCollection = workspace:FindFirstChild("CarCollection")
+	if carCollection then
+		local playerCar = carCollection:FindFirstChild(player.Name)
+		if playerCar then
+			local car = playerCar:FindFirstChild("Car")
+			if car then
+				local wheels = car:FindFirstChild("Wheels")
+				if wheels then
+					local frontWheels = {"FR", "FL"}
+					local rearWheels = {"RL", "RR"}
+					for _, wheelName in pairs(frontWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local constraint = wheel:FindFirstChild("CylindricalConstraint")
+							local spring = wheel:FindFirstChild("Spring")
+							if constraint and spring then
+								frontCamberTextBox.Text = tostring(constraint.InclinationAngle)
+								frontFreeLengthTextBox.Text = tostring(spring.FreeLength)
+								frontUpperLimitTextBox.Text = tostring(constraint.UpperLimit)
+								frontLowerLimitTextBox.Text = tostring(constraint.LowerLimit)
+								frontMaxLengthTextBox.Text = tostring(spring.MaxLength)
+								frontDampingTextBox.Text = tostring(spring.Damping)
+								break
+							end
+						end
+					end
+					for _, wheelName in pairs(rearWheels) do
+						local wheel = wheels:FindFirstChild(wheelName)
+						if wheel then
+							local constraint = wheel:FindFirstChild("CylindricalConstraint")
+							local spring = wheel:FindFirstChild("Spring")
+							if constraint and spring then
+								rearCamberTextBox.Text = tostring(constraint.InclinationAngle)
+								rearFreeLengthTextBox.Text = tostring(spring.FreeLength)
+								rearUpperLimitTextBox.Text = tostring(constraint.UpperLimit)
+								rearLowerLimitTextBox.Text = tostring(constraint.LowerLimit)
+								rearMaxLengthTextBox.Text = tostring(spring.MaxLength)
+								rearDampingTextBox.Text = tostring(spring.Damping)
+								break
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 end
+
+-- Conexões dos botões
+mainButton.MouseButton1Click:Connect(function()
+	uiFrame.Visible = not uiFrame.Visible
+	mainButton.Text = uiFrame.Visible and "−" or "+"
+end)
+
+applyButton.MouseButton1Click:Connect(function()
+	applyCambers()
+	applyFreeLengths()
+	applyLimits()
+	applySpringProperties()
+end)
+
+lowRiderFrontButton.MouseButton1Click:Connect(function()
+	lowRiderFrontActive = not lowRiderFrontActive
+	lowRiderFrontButton.Text = lowRiderFrontActive and "Front: ON" or "Front: OFF"
+	lowRiderFrontButton.BackgroundColor3 = lowRiderFrontActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192) -- ON: Laranja, OFF: #5889C0
+	if lowRiderFrontActive then
+		spawn(lowRiderFrontEffect)
+	end
+end)
+
+lowRiderRearButton.MouseButton1Click:Connect(function()
+	lowRiderRearActive = not lowRiderRearActive
+	lowRiderRearButton.Text = lowRiderRearActive and "Rear: ON" or "Rear: OFF"
+	lowRiderRearButton.BackgroundColor3 = lowRiderRearActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192) -- ON: Laranja, OFF: #5889C0
+	if lowRiderRearActive then
+		spawn(lowRiderRearEffect)
+	end
+end)
+
+scannerButton.MouseButton1Click:Connect(function()
+	scanCarSettings()
+end)
