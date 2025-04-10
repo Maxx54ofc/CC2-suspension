@@ -69,7 +69,8 @@ local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0, 30)
 titleLabel.Position = UDim2.new(0, 0, 0, 5)
 titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "Suspension Control"
+titleLabel.Text = "Suspension Control By Maxx54"
+titleLabel.TextSize = "5"
 titleLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 titleLabel.TextScaled = true
 titleLabel.Font = Enum.Font.SourceSansBold
@@ -177,31 +178,31 @@ local rearFreeLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0
 
 createLabel("UpperLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 70), scrollingFrame)
 local frontUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 70), scrollingFrame)
-frontUpperLimitTextBox.Text = "0"
+frontUpperLimitTextBox.Text = ""
 createLabel("UpperLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 70), scrollingFrame)
 local rearUpperLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 70), scrollingFrame)
-rearUpperLimitTextBox.Text = "0"
+rearUpperLimitTextBox.Text = ""
 
 createLabel("LowerLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 100), scrollingFrame)
 local frontLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 100), scrollingFrame)
-frontLowerLimitTextBox.Text = "0"
+frontLowerLimitTextBox.Text = ""
 createLabel("LowerLimit", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 100), scrollingFrame)
 local rearLowerLimitTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 100), scrollingFrame)
-rearLowerLimitTextBox.Text = "0"
+rearLowerLimitTextBox.Text = ""
 
 createLabel("MaxLength", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 130), scrollingFrame)
 local frontMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 130), scrollingFrame)
-frontMaxLengthTextBox.Text = "0"
+frontMaxLengthTextBox.Text = ""
 createLabel("MaxLength", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 130), scrollingFrame)
 local rearMaxLengthTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 130), scrollingFrame)
-rearMaxLengthTextBox.Text = "0"
+rearMaxLengthTextBox.Text = ""
 
 createLabel("Damping", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 160), scrollingFrame)
 local frontDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 160), scrollingFrame)
-frontDampingTextBox.Text = "0"
+frontDampingTextBox.Text = ""
 createLabel("Damping", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 160), scrollingFrame)
 local rearDampingTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 160), scrollingFrame)
-rearDampingTextBox.Text = "0"
+rearDampingTextBox.Text = ""
 
 createLabel("Suspension Wheels", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColumnX, 0, 190), scrollingFrame)
 local wheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX, 0, 215), scrollingFrame)
@@ -214,22 +215,22 @@ createLabel("LowRider Settings", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColu
 createLabel("Speed", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 275), scrollingFrame)
 local lowRiderFrontSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 275), scrollingFrame)
 lowRiderFrontSpeedTextBox.Text = "0.3"
-createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 305), scrollingFrame)
+createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 305), scrollingFrame)
 local lowRiderFrontMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 305), scrollingFrame)
-lowRiderFrontMinTextBox.Text = "0.8"
-createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 335), scrollingFrame)
+lowRiderFrontMinTextBox.Text = "2"
+createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, leftColumnX, 0, 335), scrollingFrame)
 local lowRiderFrontMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, leftColumnX + 60, 0, 335), scrollingFrame)
-lowRiderFrontMaxTextBox.Text = "10"
+lowRiderFrontMaxTextBox.Text = "1"
 
 createLabel("Speed", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 275), scrollingFrame)
 local lowRiderRearSpeedTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 275), scrollingFrame)
 lowRiderRearSpeedTextBox.Text = "0.3"
-createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 305), scrollingFrame)
+createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 305), scrollingFrame)
 local lowRiderRearMinTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 305), scrollingFrame)
-lowRiderRearMinTextBox.Text = "0.8"
-createLabel("Max H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 335), scrollingFrame)
+lowRiderRearMinTextBox.Text = "2"
+createLabel("Min H", UDim2.new(0, 50, 0, 20), UDim2.new(0, rightColumnX, 0, 335), scrollingFrame)
 local lowRiderRearMaxTextBox = createTextBox(UDim2.new(0, 70, 0, 25), UDim2.new(0, rightColumnX + 60, 0, 335), scrollingFrame)
-lowRiderRearMaxTextBox.Text = "10"
+lowRiderRearMaxTextBox.Text = "1"
 
 createLabel("LowRider Wheels", UDim2.new(0, 100, 0, 20), UDim2.new(0, leftColumnX, 0, 365), scrollingFrame)
 local lowRiderWheelFRButton = createWheelButton("FR", UDim2.new(0, 30, 0, 30), UDim2.new(0, leftColumnX, 0, 390), scrollingFrame)
