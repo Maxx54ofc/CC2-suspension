@@ -39,7 +39,7 @@ mainButtonTextStroke.Parent = mainButton
 -- Criar Frame da Interface
 local uiFrame = Instance.new("Frame")
 uiFrame.Size = UDim2.new(0, 350, 0, 300)
-uiFrame.Position = UDim2.new(0.1, 60, 0.1, 0)
+uiFrame.Position = UDim2.new(0.1, 60, 0, 10)
 uiFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 uiFrame.Visible = false
 uiFrame.Active = true
@@ -55,22 +55,12 @@ uiFrameStroke.Color = Color3.fromRGB(88, 137, 192)
 uiFrameStroke.Thickness = 1
 uiFrameStroke.Parent = uiFrame
 
--- Adicionar ScrollingFrame
-local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, -20, 1, -50)
-scrollingFrame.Position = UDim2.new(0, 10, 0, 40)
-scrollingFrame.BackgroundTransparency = 1
-scrollingFrame.ScrollBarThickness = 6
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 650)
-scrollingFrame.Parent = uiFrame
-
 -- Título da interface
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0, 30)
 titleLabel.Position = UDim2.new(0, 0, 0, 5)
 titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Suspension Control By Maxx54"
-titleLabel.TextSize = "5"
 titleLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
 titleLabel.TextScaled = true
 titleLabel.Font = Enum.Font.SourceSansBold
@@ -80,6 +70,330 @@ local titleLabelStroke = Instance.new("UIStroke")
 titleLabelStroke.Color = Color3.fromRGB(25, 45, 58)
 titleLabelStroke.Thickness = 1
 titleLabelStroke.Parent = titleLabel
+
+-- Botões de seleção de menu
+local suspensionMenuButton = Instance.new("TextButton")
+suspensionMenuButton.Size = UDim2.new(0, 100, 0, 30)
+suspensionMenuButton.Position = UDim2.new(0, 20, 0, 40)
+suspensionMenuButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+suspensionMenuButton.Text = "Suspension"
+suspensionMenuButton.TextColor3 = Color3.fromRGB(25, 45, 58)
+suspensionMenuButton.TextScaled = true
+suspensionMenuButton.Font = Enum.Font.SourceSansBold
+suspensionMenuButton.Parent = uiFrame
+
+local suspensionMenuButtonCorner = Instance.new("UICorner")
+suspensionMenuButtonCorner.CornerRadius = UDim.new(0, 8)
+suspensionMenuButtonCorner.Parent = suspensionMenuButton
+
+local suspensionMenuButtonStroke = Instance.new("UIStroke")
+suspensionMenuButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+suspensionMenuButtonStroke.Thickness = 1
+suspensionMenuButtonStroke.Parent = suspensionMenuButton
+
+local lightsMenuButton = Instance.new("TextButton")
+lightsMenuButton.Size = UDim2.new(0, 100, 0, 30)
+lightsMenuButton.Position = UDim2.new(0, 130, 0, 40)
+lightsMenuButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+lightsMenuButton.Text = "Lights"
+lightsMenuButton.TextColor3 = Color3.fromRGB(25, 45, 58)
+lightsMenuButton.TextScaled = true
+lightsMenuButton.Font = Enum.Font.SourceSansBold
+lightsMenuButton.Parent = uiFrame
+
+local lightsMenuButtonCorner = Instance.new("UICorner")
+lightsMenuButtonCorner.CornerRadius = UDim.new(0, 8)
+lightsMenuButtonCorner.Parent = lightsMenuButton
+
+local lightsMenuButtonStroke = Instance.new("UIStroke")
+lightsMenuButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+lightsMenuButtonStroke.Thickness = 1
+lightsMenuButtonStroke.Parent = lightsMenuButton
+
+-- Frame do menu Suspension
+local suspensionFrame = Instance.new("Frame")
+suspensionFrame.Size = UDim2.new(1, -20, 1, -80)
+suspensionFrame.Position = UDim2.new(0, 10, 0, 80)
+suspensionFrame.BackgroundTransparency = 1
+suspensionFrame.Visible = true
+suspensionFrame.Parent = uiFrame
+
+-- Adicionar ScrollingFrame para Suspension
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+scrollingFrame.Position = UDim2.new(0, 0, 0, 0)
+scrollingFrame.BackgroundTransparency = 1
+scrollingFrame.ScrollBarThickness = 6
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 650)
+scrollingFrame.Parent = suspensionFrame
+
+-- Frame do menu Lights
+local lightsFrame = Instance.new("Frame")
+lightsFrame.Size = UDim2.new(1, -20, 1, -80)
+lightsFrame.Position = UDim2.new(0, 10, 0, 80)
+lightsFrame.BackgroundTransparency = 1
+lightsFrame.Visible = false
+lightsFrame.Parent = uiFrame
+
+-- Adicionar ScrollingFrame para Lights
+local lightsScrollingFrame = Instance.new("ScrollingFrame")
+lightsScrollingFrame.Size = UDim2.new(0, 210, 1, 0)
+lightsScrollingFrame.Position = UDim2.new(0, 0, 0, 0)
+lightsScrollingFrame.BackgroundTransparency = 1
+lightsScrollingFrame.ScrollBarThickness = 6
+lightsScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 250)
+lightsScrollingFrame.Parent = lightsFrame
+
+-- Botão Strobe Lights
+local strobeButton = Instance.new("TextButton")
+strobeButton.Size = UDim2.new(0, 100, 0, 30)
+strobeButton.Position = UDim2.new(0, 20, 0, 20)
+strobeButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+strobeButton.Text = "Strobe: OFF"
+strobeButton.TextColor3 = Color3.fromRGB(25, 45, 58)
+strobeButton.TextScaled = true
+strobeButton.Font = Enum.Font.SourceSans
+strobeButton.Parent = lightsScrollingFrame
+
+local strobeButtonCorner = Instance.new("UICorner")
+strobeButtonCorner.CornerRadius = UDim.new(0, 8)
+strobeButtonCorner.Parent = strobeButton
+
+local strobeButtonStroke = Instance.new("UIStroke")
+strobeButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+strobeButtonStroke.Thickness = 1
+strobeButtonStroke.Parent = strobeButton
+
+local strobeButtonTextStroke = Instance.new("UIStroke")
+strobeButtonTextStroke.Color = Color3.fromRGB(255, 255, 255)
+strobeButtonTextStroke.Thickness = 1
+strobeButtonTextStroke.Parent = strobeButton
+
+-- Controles do Strobe
+local strobeSpeedLabel = Instance.new("TextLabel")
+strobeSpeedLabel.Size = UDim2.new(0, 50, 0, 20)
+strobeSpeedLabel.Position = UDim2.new(0, 20, 0, 60)
+strobeSpeedLabel.BackgroundTransparency = 1
+strobeSpeedLabel.Text = "Speed"
+strobeSpeedLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+strobeSpeedLabel.TextScaled = true
+strobeSpeedLabel.Font = Enum.Font.SourceSans
+strobeSpeedLabel.Parent = lightsScrollingFrame
+
+local strobeSpeedTextBox = Instance.new("TextBox")
+strobeSpeedTextBox.Size = UDim2.new(0, 70, 0, 25)
+strobeSpeedTextBox.Position = UDim2.new(0, 80, 0, 58)
+strobeSpeedTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+strobeSpeedTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+strobeSpeedTextBox.Text = "0.2"
+strobeSpeedTextBox.TextScaled = true
+strobeSpeedTextBox.Font = Enum.Font.SourceSans
+strobeSpeedTextBox.Parent = lightsScrollingFrame
+
+local strobeSpeedCorner = Instance.new("UICorner")
+strobeSpeedCorner.CornerRadius = UDim.new(0, 6)
+strobeSpeedCorner.Parent = strobeSpeedTextBox
+
+local strobeSpeedStroke = Instance.new("UIStroke")
+strobeSpeedStroke.Color = Color3.fromRGB(88, 137, 192)
+strobeSpeedStroke.Thickness = 1
+strobeSpeedStroke.Parent = strobeSpeedTextBox
+
+local strobeRepLabel = Instance.new("TextLabel")
+strobeRepLabel.Size = UDim2.new(0, 50, 0, 20)
+strobeRepLabel.Position = UDim2.new(0, 20, 0, 90)
+strobeRepLabel.BackgroundTransparency = 1
+strobeRepLabel.Text = "Reps"
+strobeRepLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+strobeRepLabel.TextScaled = true
+strobeRepLabel.Font = Enum.Font.SourceSans
+strobeRepLabel.Parent = lightsScrollingFrame
+
+local strobeRepTextBox = Instance.new("TextBox")
+strobeRepTextBox.Size = UDim2.new(0, 70, 0, 25)
+strobeRepTextBox.Position = UDim2.new(0, 80, 0, 88)
+strobeRepTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+strobeRepTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+strobeRepTextBox.Text = "5"
+strobeRepTextBox.TextScaled = true
+strobeRepTextBox.Font = Enum.Font.SourceSans
+strobeRepTextBox.Parent = lightsScrollingFrame
+
+local strobeRepCorner = Instance.new("UICorner")
+strobeRepCorner.CornerRadius = UDim.new(0, 6)
+strobeRepCorner.Parent = strobeRepTextBox
+
+local strobeRepStroke = Instance.new("UIStroke")
+strobeRepStroke.Color = Color3.fromRGB(88, 137, 192)
+strobeRepStroke.Thickness = 1
+strobeRepStroke.Parent = strobeRepTextBox
+
+local strobeWaitLabel = Instance.new("TextLabel")
+strobeWaitLabel.Size = UDim2.new(0, 50, 0, 20)
+strobeWaitLabel.Position = UDim2.new(0, 20, 0, 120)
+strobeWaitLabel.BackgroundTransparency = 1
+strobeWaitLabel.Text = "Wait"
+strobeWaitLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+strobeWaitLabel.TextScaled = true
+strobeWaitLabel.Font = Enum.Font.SourceSans
+strobeWaitLabel.Parent = lightsScrollingFrame
+
+local strobeWaitTextBox = Instance.new("TextBox")
+strobeWaitTextBox.Size = UDim2.new(0, 70, 0, 25)
+strobeWaitTextBox.Position = UDim2.new(0, 80, 0, 118)
+strobeWaitTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+strobeWaitTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+strobeWaitTextBox.Text = "1"
+strobeWaitTextBox.TextScaled = true
+strobeWaitTextBox.Font = Enum.Font.SourceSans
+strobeWaitTextBox.Parent = lightsScrollingFrame
+
+local strobeWaitCorner = Instance.new("UICorner")
+strobeWaitCorner.CornerRadius = UDim.new(0, 6)
+strobeWaitCorner.Parent = strobeWaitTextBox
+
+local strobeWaitStroke = Instance.new("UIStroke")
+strobeWaitStroke.Color = Color3.fromRGB(88, 137, 192)
+strobeWaitStroke.Thickness = 1
+strobeWaitStroke.Parent = strobeWaitTextBox
+
+-- Menu de luz
+local strobeRangeLabel = Instance.new("TextLabel")
+strobeRangeLabel.Size = UDim2.new(0, 50, 0, 20)
+strobeRangeLabel.Position = UDim2.new(0, 20, 0, 150)
+strobeRangeLabel.BackgroundTransparency = 1
+strobeRangeLabel.Text = "Range"
+strobeRangeLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+strobeRangeLabel.TextScaled = true
+strobeRangeLabel.Font = Enum.Font.SourceSans
+strobeRangeLabel.Parent = lightsScrollingFrame
+
+local strobeRangeTextBox = Instance.new("TextBox")
+strobeRangeTextBox.Size = UDim2.new(0, 70, 0, 25)
+strobeRangeTextBox.Position = UDim2.new(0, 80, 0, 148)
+strobeRangeTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+strobeRangeTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+strobeRangeTextBox.Text = "10"
+strobeRangeTextBox.TextScaled = true
+strobeRangeTextBox.Font = Enum.Font.SourceSans
+strobeRangeTextBox.Parent = lightsScrollingFrame
+
+local strobeRangeCorner = Instance.new("UICorner")
+strobeRangeCorner.CornerRadius = UDim.new(0, 6)
+strobeRangeCorner.Parent = strobeRangeTextBox
+
+local strobeRangeStroke = Instance.new("UIStroke")
+strobeRangeStroke.Color = Color3.fromRGB(88, 137, 192)
+strobeRangeStroke.Thickness = 1
+strobeRangeStroke.Parent = strobeRangeTextBox
+
+local strobeBrightnessLabel = Instance.new("TextLabel")
+strobeBrightnessLabel.Size = UDim2.new(0, 50, 0, 20)
+strobeBrightnessLabel.Position = UDim2.new(0, 20, 0, 180)
+strobeBrightnessLabel.BackgroundTransparency = 1
+strobeBrightnessLabel.Text = "Bright"
+strobeBrightnessLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+strobeBrightnessLabel.TextScaled = true
+strobeBrightnessLabel.Font = Enum.Font.SourceSans
+strobeBrightnessLabel.Parent = lightsScrollingFrame
+
+local strobeBrightnessTextBox = Instance.new("TextBox")
+strobeBrightnessTextBox.Size = UDim2.new(0, 70, 0, 25)
+strobeBrightnessTextBox.Position = UDim2.new(0, 80, 0, 178)
+strobeBrightnessTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+strobeBrightnessTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+strobeBrightnessTextBox.Text = "1"
+strobeBrightnessTextBox.TextScaled = true
+strobeBrightnessTextBox.Font = Enum.Font.SourceSans
+strobeBrightnessTextBox.Parent = lightsScrollingFrame
+
+local strobeBrightnessCorner = Instance.new("UICorner")
+strobeBrightnessCorner.CornerRadius = UDim.new(0, 6)
+strobeBrightnessCorner.Parent = strobeBrightnessTextBox
+
+local strobeBrightnessStroke = Instance.new("UIStroke")
+strobeBrightnessStroke.Color = Color3.fromRGB(88, 137, 192)
+strobeBrightnessStroke.Thickness = 1
+strobeBrightnessStroke.Parent = strobeBrightnessTextBox
+
+-- Botão Multi-Select
+local multiSelectButton = Instance.new("TextButton")
+multiSelectButton.Size = UDim2.new(0, 100, 0, 30)
+multiSelectButton.Position = UDim2.new(0, 20, 0, 210)
+multiSelectButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+multiSelectButton.Text = "Multi: OFF"
+multiSelectButton.TextColor3 = Color3.fromRGB(25, 45, 58)
+multiSelectButton.TextScaled = true
+multiSelectButton.Font = Enum.Font.SourceSans
+multiSelectButton.Parent = lightsScrollingFrame
+
+local multiSelectButtonCorner = Instance.new("UICorner")
+multiSelectButtonCorner.CornerRadius = UDim.new(0, 8)
+multiSelectButtonCorner.Parent = multiSelectButton
+
+local multiSelectButtonStroke = Instance.new("UIStroke")
+multiSelectButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+multiSelectButtonStroke.Thickness = 1
+multiSelectButtonStroke.Parent = multiSelectButton
+
+-- Botão Clear Selection
+local clearButton = Instance.new("TextButton")
+clearButton.Size = UDim2.new(0, 70, 0, 30)
+clearButton.Position = UDim2.new(0, 130, 0, 210)
+clearButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+clearButton.Text = "Clear"
+clearButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+clearButton.TextScaled = true
+clearButton.Font = Enum.Font.SourceSansBold
+clearButton.Parent = lightsScrollingFrame
+
+local clearButtonCorner = Instance.new("UICorner")
+clearButtonCorner.CornerRadius = UDim.new(0, 8)
+clearButtonCorner.Parent = clearButton
+
+local clearButtonStroke = Instance.new("UIStroke")
+clearButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+clearButtonStroke.Thickness = 1
+clearButtonStroke.Parent = clearButton
+
+-- ScrollingFrame para listar itens em Parts
+local partsListFrame = Instance.new("ScrollingFrame")
+partsListFrame.Size = UDim2.new(0, 100, 0, 180)
+partsListFrame.Position = UDim2.new(1, -110, 0, 10)
+partsListFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+partsListFrame.ScrollBarThickness = 4
+partsListFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+partsListFrame.Parent = lightsFrame
+
+local partsListFrameCorner = Instance.new("UICorner")
+partsListFrameCorner.CornerRadius = UDim.new(0, 6)
+partsListFrameCorner.Parent = partsListFrame
+
+local partsListFrameStroke = Instance.new("UIStroke")
+partsListFrameStroke.Color = Color3.fromRGB(88, 137, 192)
+partsListFrameStroke.Thickness = 1
+partsListFrameStroke.Parent = partsListFrame
+
+-- Campo de busca
+local searchBox = Instance.new("TextBox")
+searchBox.Size = UDim2.new(0, 100, 0, 25)
+searchBox.Position = UDim2.new(1, -110, 0, -15)
+searchBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+searchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+searchBox.PlaceholderText = "Search..."
+searchBox.Text = ""
+searchBox.TextScaled = true
+searchBox.Font = Enum.Font.SourceSans
+searchBox.Parent = lightsFrame
+
+local searchBoxCorner = Instance.new("UICorner")
+searchBoxCorner.CornerRadius = UDim.new(0, 6)
+searchBoxCorner.Parent = searchBox
+
+local searchBoxStroke = Instance.new("UIStroke")
+searchBoxStroke.Color = Color3.fromRGB(88, 137, 192)
+searchBoxStroke.Thickness = 1
+searchBoxStroke.Parent = searchBox
 
 -- Funções auxiliares
 local function createLabel(text, size, pos, parent)
@@ -127,10 +441,6 @@ local function createTextBox(size, pos, parent)
 	textStroke.Thickness = 1
 	textStroke.Parent = textBox
 
-	textBox.Focused:Connect(function()
-		textBox.Text = ""
-	end)
-
 	return textBox
 end
 
@@ -162,7 +472,30 @@ local function createWheelButton(text, size, pos, parent)
 	return button
 end
 
--- Elementos da UI
+local function createPartButton(part, pos, parent)
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(1, -10, 0, 25)
+	button.Position = pos
+	button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	button.Text = part.Name
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextScaled = true
+	button.Font = Enum.Font.SourceSans
+	button.Parent = parent
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 6)
+	corner.Parent = button
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = Color3.fromRGB(88, 137, 192)
+	stroke.Thickness = 1
+	stroke.Parent = button
+
+	return button
+end
+
+-- Elementos da UI (Suspension)
 local leftColumnX = 20
 local rightColumnX = 180
 
@@ -242,9 +575,9 @@ local lowRiderWheelRRButton = createWheelButton("RR", UDim2.new(0, 30, 0, 30), U
 local lowRiderFrontButton = Instance.new("TextButton")
 lowRiderFrontButton.Size = UDim2.new(0, 100, 0, 30)
 lowRiderFrontButton.Position = UDim2.new(0, leftColumnX, 0, 425)
-lowRiderFrontButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192) -- Fundo #5889C0 (OFF)
+lowRiderFrontButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
 lowRiderFrontButton.Text = "Front: OFF"
-lowRiderFrontButton.TextColor3 = Color3.fromRGB(25, 45, 58) -- Texto #192D3A
+lowRiderFrontButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 lowRiderFrontButton.TextScaled = true
 lowRiderFrontButton.Font = Enum.Font.SourceSans
 lowRiderFrontButton.Parent = scrollingFrame
@@ -254,12 +587,12 @@ lowRiderFrontButtonCorner.CornerRadius = UDim.new(0, 8)
 lowRiderFrontButtonCorner.Parent = lowRiderFrontButton
 
 local lowRiderFrontButtonStroke = Instance.new("UIStroke")
-lowRiderFrontButtonStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do botão branca
+lowRiderFrontButtonStroke.Color = Color3.fromRGB(255, 255, 255)
 lowRiderFrontButtonStroke.Thickness = 1
 lowRiderFrontButtonStroke.Parent = lowRiderFrontButton
 
 local lowRiderFrontButtonTextStroke = Instance.new("UIStroke")
-lowRiderFrontButtonTextStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do texto branca
+lowRiderFrontButtonTextStroke.Color = Color3.fromRGB(255, 255, 255)
 lowRiderFrontButtonTextStroke.Thickness = 1
 lowRiderFrontButtonTextStroke.Parent = lowRiderFrontButton
 
@@ -267,9 +600,9 @@ lowRiderFrontButtonTextStroke.Parent = lowRiderFrontButton
 local lowRiderRearButton = Instance.new("TextButton")
 lowRiderRearButton.Size = UDim2.new(0, 100, 0, 30)
 lowRiderRearButton.Position = UDim2.new(0, rightColumnX + 30, 0, 425)
-lowRiderRearButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192) -- Fundo #5889C0 (OFF)
+lowRiderRearButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
 lowRiderRearButton.Text = "Rear: OFF"
-lowRiderRearButton.TextColor3 = Color3.fromRGB(25, 45, 58) -- Texto #192D3A
+lowRiderRearButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 lowRiderRearButton.TextScaled = true
 lowRiderRearButton.Font = Enum.Font.SourceSans
 lowRiderRearButton.Parent = scrollingFrame
@@ -279,16 +612,16 @@ lowRiderRearButtonCorner.CornerRadius = UDim.new(0, 8)
 lowRiderRearButtonCorner.Parent = lowRiderRearButton
 
 local lowRiderRearButtonStroke = Instance.new("UIStroke")
-lowRiderRearButtonStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do botão branca
+lowRiderRearButtonStroke.Color = Color3.fromRGB(255, 255, 255)
 lowRiderRearButtonStroke.Thickness = 1
 lowRiderRearButtonStroke.Parent = lowRiderRearButton
 
 local lowRiderRearButtonTextStroke = Instance.new("UIStroke")
-lowRiderRearButtonTextStroke.Color = Color3.fromRGB(255, 255, 255) -- Borda do texto branca
+lowRiderRearButtonTextStroke.Color = Color3.fromRGB(255, 255, 255)
 lowRiderRearButtonTextStroke.Thickness = 1
 lowRiderRearButtonTextStroke.Parent = lowRiderRearButton
 
--- Botão Apply
+-- Botão Apply (Suspension)
 local applyButton = Instance.new("TextButton")
 applyButton.Size = UDim2.new(0, 70, 0, 30)
 applyButton.Position = UDim2.new(1, -90, 1, -35)
@@ -297,7 +630,7 @@ applyButton.Text = "Apply"
 applyButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 applyButton.TextScaled = true
 applyButton.Font = Enum.Font.SourceSansBold
-applyButton.Parent = uiFrame
+applyButton.Parent = suspensionFrame
 
 local applyButtonCorner = Instance.new("UICorner")
 applyButtonCorner.CornerRadius = UDim.new(0, 8)
@@ -313,7 +646,7 @@ applyButtonTextStroke.Color = Color3.fromRGB(25, 45, 58)
 applyButtonTextStroke.Thickness = 1
 applyButtonTextStroke.Parent = applyButton
 
--- Botão Scanner
+-- Botão Scanner (Suspension)
 local scannerButton = Instance.new("TextButton")
 scannerButton.Size = UDim2.new(0, 70, 0, 30)
 scannerButton.Position = UDim2.new(1, -170, 1, -35)
@@ -322,7 +655,7 @@ scannerButton.Text = "Scan"
 scannerButton.TextColor3 = Color3.fromRGB(25, 45, 58)
 scannerButton.TextScaled = true
 scannerButton.Font = Enum.Font.SourceSansBold
-scannerButton.Parent = uiFrame
+scannerButton.Parent = suspensionFrame
 
 local scannerButtonCorner = Instance.new("UICorner")
 scannerButtonCorner.CornerRadius = UDim.new(0, 8)
@@ -341,8 +674,110 @@ scannerButtonTextStroke.Parent = scannerButton
 -- Variáveis
 local lowRiderFrontActive = false
 local lowRiderRearActive = false
+local multiSelectActive = false
 local selectedWheels = { FR = true, FL = true, RL = true, RR = true }
 local selectedLowRiderWheels = { FR = true, FL = true, RL = true, RR = true }
+local selectedParts = {}
+local originalMaterials = {}
+local strobeActiveParts = {} -- Tabela para rastrear peças com strobe ativo
+
+-- Função para o efeito Strobe Lights por peça
+local function strobeEffect(part)
+	while true do -- Loop infinito até a peça ser destruída ou o jogo reiniciado
+		local speed = tonumber(strobeSpeedTextBox.Text) or 0.2
+		local repetitions = math.max(1, tonumber(strobeRepTextBox.Text) or 5)
+		local waitTime = tonumber(strobeWaitTextBox.Text) or 1
+		local range = tonumber(strobeRangeTextBox.Text) or 10
+		local brightness = tonumber(strobeBrightnessTextBox.Text) or 1
+
+		if not originalMaterials[part] then
+			originalMaterials[part] = part.Material
+		end
+		for i = 1, repetitions do
+			part.Material = Enum.Material.Neon
+			local light = Instance.new("PointLight")
+			light.Range = range
+			light.Brightness = brightness
+			light.Shadows = true
+			light.Color = part.Color
+			light.Parent = part
+			wait(speed)
+			part.Material = originalMaterials[part] or Enum.Material.Plastic
+			light:Destroy()
+			wait(speed)
+		end
+		wait(waitTime)
+	end
+end
+
+-- Função para listar itens em Parts
+local function updatePartsList(filter)
+	for _, child in pairs(partsListFrame:GetChildren()) do
+		if child:IsA("TextButton") then
+			child:Destroy()
+		end
+	end
+
+	local carCollection = workspace:FindFirstChild("CarCollection")
+	if carCollection then
+		local playerCar = carCollection:FindFirstChild(player.Name)
+		if playerCar then
+			local car = playerCar:FindFirstChild("Car")
+			if car then
+				local body = car:FindFirstChild("Body")
+				if body then
+					local parts = body:FindFirstChild("Parts")
+					if parts then
+						local yOffset = 0
+						for _, part in pairs(parts:GetChildren()) do
+							local partName = part.Name:lower()
+							local filterText = filter and filter:lower() or ""
+							if filterText == "" or partName:find(filterText) then
+								local button = createPartButton(part, UDim2.new(0, 5, 0, yOffset), partsListFrame)
+								button.MouseButton1Click:Connect(function()
+									if multiSelectActive then
+										local index = table.find(selectedParts, part)
+										if index then
+											local selectionBox = part:FindFirstChild("SelectionBox")
+											if selectionBox then
+												selectionBox:Destroy()
+											end
+											table.remove(selectedParts, index)
+										else
+											table.insert(selectedParts, part)
+											local selectionBox = Instance.new("SelectionBox")
+											selectionBox.Adornee = part
+											selectionBox.LineThickness = 0.05
+											selectionBox.Color3 = Color3.fromRGB(0, 255, 0)
+											selectionBox.Parent = part
+											originalMaterials[part] = part.Material
+										end
+									else
+										for _, p in pairs(selectedParts) do
+											local prevSelectionBox = p:FindFirstChild("SelectionBox")
+											if prevSelectionBox then
+												prevSelectionBox:Destroy()
+											end
+										end
+										selectedParts = {part}
+										local selectionBox = Instance.new("SelectionBox")
+										selectionBox.Adornee = part
+										selectionBox.LineThickness = 0.05
+										selectionBox.Color3 = Color3.fromRGB(0, 255, 0)
+										selectionBox.Parent = part
+										originalMaterials[part] = part.Material
+									end
+								end)
+								yOffset = yOffset + 30
+							end
+						end
+						partsListFrame.CanvasSize = UDim2.new(0, 0, 0, yOffset)
+					end
+				end
+			end
+		end
+	end
+end
 
 -- Função para alternar seleção de roda
 local function toggleWheelSelection(wheel, button, selectionTable)
@@ -680,6 +1115,22 @@ local function scanCarSettings()
 	end
 end
 
+-- Conexões dos botões de menu
+suspensionMenuButton.MouseButton1Click:Connect(function()
+	suspensionFrame.Visible = true
+	lightsFrame.Visible = false
+	suspensionMenuButton.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+	lightsMenuButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+end)
+
+lightsMenuButton.MouseButton1Click:Connect(function()
+	suspensionFrame.Visible = false
+	lightsFrame.Visible = true
+	suspensionMenuButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+	lightsMenuButton.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+	updatePartsList()
+end)
+
 -- Conexões dos botões
 mainButton.MouseButton1Click:Connect(function()
 	uiFrame.Visible = not uiFrame.Visible
@@ -696,7 +1147,7 @@ end)
 lowRiderFrontButton.MouseButton1Click:Connect(function()
 	lowRiderFrontActive = not lowRiderFrontActive
 	lowRiderFrontButton.Text = lowRiderFrontActive and "Front: ON" or "Front: OFF"
-	lowRiderFrontButton.BackgroundColor3 = lowRiderFrontActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192) -- ON: Laranja, OFF: #5889C0
+	lowRiderFrontButton.BackgroundColor3 = lowRiderFrontActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192)
 	if lowRiderFrontActive then
 		spawn(lowRiderFrontEffect)
 	end
@@ -705,7 +1156,7 @@ end)
 lowRiderRearButton.MouseButton1Click:Connect(function()
 	lowRiderRearActive = not lowRiderRearActive
 	lowRiderRearButton.Text = lowRiderRearActive and "Rear: ON" or "Rear: OFF"
-	lowRiderRearButton.BackgroundColor3 = lowRiderRearActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192) -- ON: Laranja, OFF: #5889C0
+	lowRiderRearButton.BackgroundColor3 = lowRiderRearActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192)
 	if lowRiderRearActive then
 		spawn(lowRiderRearEffect)
 	end
@@ -713,4 +1164,54 @@ end)
 
 scannerButton.MouseButton1Click:Connect(function()
 	scanCarSettings()
+end)
+
+strobeButton.MouseButton1Click:Connect(function()
+	if #selectedParts > 0 then
+		for _, part in pairs(selectedParts) do
+			-- Remove a seleção
+			local selectionBox = part:FindFirstChild("SelectionBox")
+			if selectionBox then
+				selectionBox:Destroy()
+			end
+			-- Remove ClickDetector se existir
+			local clickDetector = part:FindFirstChild("ClickDetector")
+			if clickDetector then
+				clickDetector:Destroy()
+			end
+			-- Inicia o strobe se ainda não estiver ativo
+			if not strobeActiveParts[part] then
+				strobeActiveParts[part] = true
+				spawn(function() strobeEffect(part) end)
+			end
+		end
+		-- Limpa a lista de selecionados
+		selectedParts = {}
+		strobeButton.Text = "Strobe: ON"
+		strobeButton.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+	else
+		strobeButton.Text = "Select parts!"
+		wait(1)
+		strobeButton.Text = "Strobe: OFF"
+	end
+end)
+
+multiSelectButton.MouseButton1Click:Connect(function()
+	multiSelectActive = not multiSelectActive
+	multiSelectButton.Text = multiSelectActive and "Multi: ON" or "Multi: OFF"
+	multiSelectButton.BackgroundColor3 = multiSelectActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192)
+end)
+
+clearButton.MouseButton1Click:Connect(function()
+	for _, part in pairs(selectedParts) do
+		local selectionBox = part:FindFirstChild("SelectionBox")
+		if selectionBox then
+			selectionBox:Destroy()
+		end
+	end
+	selectedParts = {}
+end)
+
+searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+	updatePartsList(searchBox.Text)
 end)
