@@ -138,10 +138,10 @@ lightsFrame.Parent = uiFrame
 -- Adicionar ScrollingFrame para Lights
 local lightsScrollingFrame = Instance.new("ScrollingFrame")
 lightsScrollingFrame.Size = UDim2.new(0, 210, 1, 0)
-lightsScrollingFrame.Position = UDim2.new(0, 0, 0, 0)
+lightsScrollingFrame.Position = UDim2.new(0, 0, 0, -1)
 lightsScrollingFrame.BackgroundTransparency = 1
 lightsScrollingFrame.ScrollBarThickness = 6
-lightsScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 250)
+lightsScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 280) -- Aumentado para caber o novo botão
 lightsScrollingFrame.Parent = lightsFrame
 
 -- Botão Strobe Lights
@@ -336,30 +336,71 @@ multiSelectButtonStroke.Color = Color3.fromRGB(255, 255, 255)
 multiSelectButtonStroke.Thickness = 1
 multiSelectButtonStroke.Parent = multiSelectButton
 
--- Botão Clear Selection
-local clearButton = Instance.new("TextButton")
-clearButton.Size = UDim2.new(0, 70, 0, 30)
-clearButton.Position = UDim2.new(0, 130, 0, 210)
-clearButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-clearButton.Text = "Clear"
-clearButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-clearButton.TextScaled = true
-clearButton.Font = Enum.Font.SourceSansBold
-clearButton.Parent = lightsScrollingFrame
+-- Botão Stop
+local stopButton = Instance.new("TextButton")
+stopButton.Size = UDim2.new(0, 70, 0, 30)
+stopButton.Position = UDim2.new(0, 130, 0, 210)
+stopButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+stopButton.Text = "Stop"
+stopButton.TextColor3 = Color3.fromRGB(29, 52, 71)
+stopButton.TextScaled = true
+stopButton.Font = Enum.Font.SourceSansBold
+stopButton.Parent = lightsScrollingFrame
 
-local clearButtonCorner = Instance.new("UICorner")
-clearButtonCorner.CornerRadius = UDim.new(0, 8)
-clearButtonCorner.Parent = clearButton
+local stopButtonCorner = Instance.new("UICorner")
+stopButtonCorner.CornerRadius = UDim.new(0, 8)
+stopButtonCorner.Parent = stopButton
 
-local clearButtonStroke = Instance.new("UIStroke")
-clearButtonStroke.Color = Color3.fromRGB(255, 255, 255)
-clearButtonStroke.Thickness = 1
-clearButtonStroke.Parent = clearButton
+local stopButtonStroke = Instance.new("UIStroke")
+stopButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+stopButtonStroke.Thickness = 1
+stopButtonStroke.Parent = stopButton
+
+-- Novo Botão Change Color
+local changeColorButton = Instance.new("TextButton")
+changeColorButton.Size = UDim2.new(0, 100, 0, 30)
+changeColorButton.Position = UDim2.new(0, 20, 0, 240)
+changeColorButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
+changeColorButton.Text = "Change Color"
+changeColorButton.TextColor3 = Color3.fromRGB(25, 45, 58)
+changeColorButton.TextScaled = true
+changeColorButton.Font = Enum.Font.SourceSans
+changeColorButton.Parent = lightsScrollingFrame
+
+local changeColorButtonCorner = Instance.new("UICorner")
+changeColorButtonCorner.CornerRadius = UDim.new(0, 8)
+changeColorButtonCorner.Parent = changeColorButton
+
+local changeColorButtonStroke = Instance.new("UIStroke")
+changeColorButtonStroke.Color = Color3.fromRGB(255, 255, 255)
+changeColorButtonStroke.Thickness = 1
+changeColorButtonStroke.Parent = changeColorButton
+
+-- Campo de entrada para cor RGB
+local colorInputTextBox = Instance.new("TextBox")
+colorInputTextBox.Size = UDim2.new(0, 70, 0, 25)
+colorInputTextBox.Position = UDim2.new(0, 130, 0, 243)
+colorInputTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+colorInputTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+colorInputTextBox.PlaceholderText = "R,G,B"
+colorInputTextBox.Text = "255,255,255"
+colorInputTextBox.TextScaled = true
+colorInputTextBox.Font = Enum.Font.SourceSans
+colorInputTextBox.Parent = lightsScrollingFrame
+
+local colorInputCorner = Instance.new("UICorner")
+colorInputCorner.CornerRadius = UDim.new(0, 6)
+colorInputCorner.Parent = colorInputTextBox
+
+local colorInputStroke = Instance.new("UIStroke")
+colorInputStroke.Color = Color3.fromRGB(88, 137, 192)
+colorInputStroke.Thickness = 1
+colorInputStroke.Parent = colorInputTextBox
 
 -- ScrollingFrame para listar itens em Parts
 local partsListFrame = Instance.new("ScrollingFrame")
-partsListFrame.Size = UDim2.new(0, 100, 0, 180)
-partsListFrame.Position = UDim2.new(1, -110, 0, 10)
+partsListFrame.Size = UDim2.new(0, 100, 0, 190)
+partsListFrame.Position = UDim2.new(1, -110, 0, 20)
 partsListFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 partsListFrame.ScrollBarThickness = 4
 partsListFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -421,7 +462,7 @@ local function createTextBox(size, pos, parent)
 	textBox.Position = pos
 	textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 	textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	textBox.ClearTextOnFocus = false
+	textBox.ClearTextOnFocus = true
 	textBox.Text = ""
 	textBox.TextScaled = true
 	textBox.Font = Enum.Font.SourceSans
@@ -679,11 +720,12 @@ local selectedWheels = { FR = true, FL = true, RL = true, RR = true }
 local selectedLowRiderWheels = { FR = true, FL = true, RL = true, RR = true }
 local selectedParts = {}
 local originalMaterials = {}
-local strobeActiveParts = {} -- Tabela para rastrear peças com strobe ativo
+local strobeActiveParts = {}
+local strobeTasks = {}
 
 -- Função para o efeito Strobe Lights por peça
 local function strobeEffect(part)
-	while true do -- Loop infinito até a peça ser destruída ou o jogo reiniciado
+	while strobeActiveParts[part] do
 		local speed = tonumber(strobeSpeedTextBox.Text) or 0.2
 		local repetitions = math.max(1, tonumber(strobeRepTextBox.Text) or 5)
 		local waitTime = tonumber(strobeWaitTextBox.Text) or 1
@@ -694,6 +736,7 @@ local function strobeEffect(part)
 			originalMaterials[part] = part.Material
 		end
 		for i = 1, repetitions do
+			if not strobeActiveParts[part] then break end
 			part.Material = Enum.Material.Neon
 			local light = Instance.new("PointLight")
 			light.Range = range
@@ -706,7 +749,14 @@ local function strobeEffect(part)
 			light:Destroy()
 			wait(speed)
 		end
-		wait(waitTime)
+		if strobeActiveParts[part] then
+			wait(waitTime)
+		end
+	end
+	part.Material = originalMaterials[part] or Enum.Material.Plastic
+	local light = part:FindFirstChild("PointLight")
+	if light then
+		light:Destroy()
 	end
 end
 
@@ -734,6 +784,9 @@ local function updatePartsList(filter)
 							local filterText = filter and filter:lower() or ""
 							if filterText == "" or partName:find(filterText) then
 								local button = createPartButton(part, UDim2.new(0, 5, 0, yOffset), partsListFrame)
+								if strobeActiveParts[part] then
+									button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+								end
 								button.MouseButton1Click:Connect(function()
 									if multiSelectActive then
 										local index = table.find(selectedParts, part)
@@ -777,6 +830,48 @@ local function updatePartsList(filter)
 			end
 		end
 	end
+end
+
+-- Função para trocar a cor das partes selecionadas
+local function changePartColor()
+	if #selectedParts == 0 then
+		changeColorButton.Text = "Select parts!"
+		wait(1)
+		changeColorButton.Text = "Change Color"
+		return
+	end
+
+	local rgb = colorInputTextBox.Text:split(",")
+	if #rgb ~= 3 then
+		changeColorButton.Text = "Invalid RGB!"
+		wait(1)
+		changeColorButton.Text = "Change Color"
+		return
+	end
+
+	local r = tonumber(rgb[1])
+	local g = tonumber(rgb[2])
+	local b = tonumber(rgb[3])
+
+	if not r or not g or not b or r < 0 or r > 255 or g < 0 or g > 255 or b < 0 or b > 255 then
+		changeColorButton.Text = "Invalid RGB!"
+		wait(1)
+		changeColorButton.Text = "Change Color"
+		return
+	end
+
+	for _, part in pairs(selectedParts) do
+		part.Color = Color3.fromRGB(r, g, b)
+	end
+
+	-- Remove seleções após aplicar a cor
+	for _, part in pairs(selectedParts) do
+		local selectionBox = part:FindFirstChild("SelectionBox")
+		if selectionBox then
+			selectionBox:Destroy()
+		end
+	end
+	selectedParts = {}
 end
 
 -- Função para alternar seleção de roda
@@ -1169,26 +1264,24 @@ end)
 strobeButton.MouseButton1Click:Connect(function()
 	if #selectedParts > 0 then
 		for _, part in pairs(selectedParts) do
-			-- Remove a seleção
 			local selectionBox = part:FindFirstChild("SelectionBox")
 			if selectionBox then
 				selectionBox:Destroy()
 			end
-			-- Remove ClickDetector se existir
 			local clickDetector = part:FindFirstChild("ClickDetector")
 			if clickDetector then
 				clickDetector:Destroy()
 			end
-			-- Inicia o strobe se ainda não estiver ativo
 			if not strobeActiveParts[part] then
 				strobeActiveParts[part] = true
-				spawn(function() strobeEffect(part) end)
+				local task = spawn(function() strobeEffect(part) end)
+				strobeTasks[part] = task
 			end
 		end
-		-- Limpa a lista de selecionados
 		selectedParts = {}
 		strobeButton.Text = "Strobe: ON"
 		strobeButton.BackgroundColor3 = Color3.fromRGB(255, 150, 0)
+		updatePartsList(searchBox.Text)
 	else
 		strobeButton.Text = "Select parts!"
 		wait(1)
@@ -1202,14 +1295,29 @@ multiSelectButton.MouseButton1Click:Connect(function()
 	multiSelectButton.BackgroundColor3 = multiSelectActive and Color3.fromRGB(255, 150, 0) or Color3.fromRGB(88, 137, 192)
 end)
 
-clearButton.MouseButton1Click:Connect(function()
-	for _, part in pairs(selectedParts) do
+stopButton.MouseButton1Click:Connect(function()
+	for part, _ in pairs(strobeActiveParts) do
+		strobeActiveParts[part] = false
+		part.Material = originalMaterials[part] or Enum.Material.Plastic
+		local light = part:FindFirstChild("PointLight")
+		if light then
+			light:Destroy()
+		end
 		local selectionBox = part:FindFirstChild("SelectionBox")
 		if selectionBox then
 			selectionBox:Destroy()
 		end
 	end
+	strobeActiveParts = {}
+	strobeTasks = {}
+	strobeButton.Text = "Strobe: OFF"
+	strobeButton.BackgroundColor3 = Color3.fromRGB(88, 137, 192)
 	selectedParts = {}
+	updatePartsList(searchBox.Text)
+end)
+
+changeColorButton.MouseButton1Click:Connect(function()
+	changePartColor()
 end)
 
 searchBox:GetPropertyChangedSignal("Text"):Connect(function()
